@@ -6,6 +6,12 @@ import "firebase/auth";
 import { Button } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Link from "next/link";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -22,39 +28,103 @@ const Signup = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [erroropen, setErrorOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setErrorOpen(false);
+  };
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleErrorClick = () => {
+    setErrorOpen(true);
+  };
+
+  const handleForm = (e) => {
+    e.preventDefault();
+    console.log(error);
+    if (error === "") {
+      setOpen(true);
+    }
+  };
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          <span style={{ fontSize: "15px" }}>Successfully Logged In</span>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        open={erroropen}
+        autoHideDuration={6000}
+        onClose={handleCloseError}
+      >
+        <Alert onClose={handleCloseError} severity="error">
+          <span style={{ fontSize: "15px" }}>{error}</span>
+        </Alert>
+      </Snackbar>
       <div className="signup">
         <div className="signup__heading">Join Shramin</div>
-        <label className="signup__label">Email</label>
-        <div className="signup__textbox">
-          <TextField
-            id="email"
-            variant="outlined"
-            fullWidth
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            InputProps={{ className: classes.input }}
-            InputLabelProps={{ className: classes.inputlabel }}
-            style={{ marginBottom: "40px", marginTop: "10px" }}
-          />
+        <form onSubmit={(e) => handleForm(e)}>
+          <label className="signup__label">Email</label>
+          <div className="signup__textbox">
+            <TextField
+              id="email"
+              variant="outlined"
+              fullWidth
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              InputProps={{ className: classes.input }}
+              InputLabelProps={{ className: classes.inputlabel }}
+              style={{ marginBottom: "40px", marginTop: "10px" }}
+            />
 
-          <label className="signup__label">
-            Password(6 or more characters)
-          </label>
-          <TextField
-            id="password"
-            type="password"
-            variant="outlined"
-            fullWidth
-            value={pass}
-            onChange={(e) => setPass(e.target.value)}
-            InputProps={{ className: classes.input }}
-            InputLabelProps={{ className: classes.inputlabel }}
-            style={{ marginTop: "10px" }}
-          />
-        </div>
+            <label className="signup__label">
+              Password(6 or more characters)
+            </label>
+            <TextField
+              id="password"
+              type="password"
+              variant="outlined"
+              fullWidth
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              InputProps={{ className: classes.input }}
+              InputLabelProps={{ className: classes.inputlabel }}
+              style={{ marginTop: "10px" }}
+            />
+          </div>
+        </form>
 
         <div className="signup__button u-center-text margin-top-medium">
           <Button
@@ -70,7 +140,8 @@ const Signup = () => {
                 })
                 .catch(function (error) {
                   const message = error.message;
-                  alert(message);
+                  setError(message);
+                  handleErrorClick();
                 });
             }}
           >

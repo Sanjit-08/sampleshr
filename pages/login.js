@@ -6,6 +6,12 @@ import "firebase/auth";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
 import TextField from "@material-ui/core/TextField";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -22,27 +28,71 @@ const Login = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState("");
+  const [erroropen, setErrorOpen] = useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const handleCloseError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setErrorOpen(false);
+  };
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleErrorClick = () => {
+    setErrorOpen(true);
+  };
 
   const handleForm = (e) => {
     e.preventDefault();
-    if (email === "") {
-      console.log("Fill email");
-    }
-    if (!email.includes("@")) {
-      console.log("Incorrect email");
-    }
-    if (pass === "") {
-      console.log("Fill password!!");
-    }
-    if (pass.length < 6) {
-      console.log("Password length more than 6");
-    } else {
-      console.log("Submitted");
+    console.log(error);
+    if (error === "") {
+      setOpen(true);
     }
   };
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="success">
+          <span style={{ fontSize: "15px" }}>Successfully Logged In</span>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        open={erroropen}
+        autoHideDuration={6000}
+        onClose={handleCloseError}
+      >
+        <Alert onClose={handleCloseError} severity="error">
+          <span style={{ fontSize: "15px" }}>{error}</span>
+        </Alert>
+      </Snackbar>
       <div className="login">
         <div className="login__heading">Login to Shramin</div>
         <form onSubmit={(e) => handleForm(e)}>
@@ -87,7 +137,8 @@ const Login = () => {
                   })
                   .catch(function (error) {
                     const message = error.message;
-                    alert(message);
+                    setError(message);
+                    handleErrorClick();
                   });
               }}
             >
