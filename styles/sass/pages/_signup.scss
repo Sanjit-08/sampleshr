@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+.signup {
+  @include box;
+  height: 49rem;
+  font-family: "Ubuntu", sans-serif;
+
+  &__heading {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  &__textbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+  }
+
+  &__label {
+    font-size: 1.5rem;
+  }
+
+  &__user {
+    &__text {
+      font-size: 2rem;
+    }
+
+    &__link {
+      @include boxlink;
+
+      &:link,
+      &:visited {
+        @include boxlink;
+        text-decoration: none;
+      }
+
+      &:hover {
+        font-weight: 600;
+        font-size: 2rem;
+      }
+    }
+  }
+}

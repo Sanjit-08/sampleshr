@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+.login {
+  @include box;
+  height: 38rem;
+  font-family: "Ubuntu", sans-serif;
+
+  &__heading {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  &__textbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+  }
+
+  &__newuser {
+    position: absolute;
+    top: 70%;
+    left: 42%;
+
+    &__text {
+      font-size: 2rem;
+    }
+
+    &__link {
+      @include boxlink;
+
+      &:link,
+      &:visited {
+        @include boxlink;
+        text-decoration: none;
+      }
+
+      &:hover {
+        font-weight: 600;
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__user {
+    &__text {
+      font-size: 2rem;
+    }
+
+    &__link {
+      color: $color-link;
+      font-size: 2rem;
+
+      &:link,
+      &:visited {
+        font-size: 2rem;
+        color: $color-link;
+        text-decoration: none;
+      }
+
+      &:hover {
+        font-weight: 600;
+        font-size: 2rem;
+      }
+    }
+  }
+}

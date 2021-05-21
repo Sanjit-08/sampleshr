@@ -1,0 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%; }
+  @media only screen and (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media only screen and (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+  @media only screen and (max-width: 37.5em) {
+    html {
+      font-size: 40%; } }
+
+body {
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif; }
+
+.u-center-text {
+  text-align: center; }
+
+.u-margin-bottom-large {
+  margin-bottom: 8rem !important; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 5rem !important; }
+
+.u-margin-bottom-small {
+  margin-bottom: 2.5rem !important; }
+
+.u-margin-top-large {
+  margin-top: 15rem !important; }
+
+.u-margin-top-medium {
+  margin-top: 5rem !important; }
+
+.u-margin-top-small {
+  margin-top: 2rem !important; }
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto; }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  @media only screen and (max-width: 56.25em) {
+    .row {
+      max-width: 50rem;
+      padding: 0 2rem; } }
+  .row [class^="col-"] {
+    float: left; }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem; }
+      @media only screen and (max-width: 56.25em) {
+        .row [class^="col-"]:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 6rem; } }
+    @media only screen and (max-width: 56.25em) {
+      .row [class^="col-"] {
+        width: 100% !important; } }
+  .row .col-1-of-2 {
+    width: calc((100% - 6rem) / 2); }
+  .row .col-1-of-3 {
+    width: calc((100% - 2 *6rem) / 3); }
+  .row .col-1-of-4 {
+    width: calc((100% - 3 *6rem) / 4); }
+  .row .col-2-of-3 {
+    width: calc( 2 * ((100% - 2 *6rem) / 3) + 6rem); }
+  .row .col-2-of-4 {
+    width: calc( 2 * ((100% - 3 *6rem) / 4) + 6rem); }
+  .row .col-3-of-4 {
+    width: calc( 3 * ((100% - 3 *6rem) / 4) + 2 *6rem); }
+
+.navbar {
+  width: 100%;
+  background-color: #fff;
+  height: 7.5rem;
+  padding: 1rem 20rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999; }
+  .navbar__links {
+    float: right;
+    margin-right: 5rem;
+    display: flex;
+    flex-direction: row; }
+  .navbar__linktext {
+    padding: 0.1rem 0.8rem;
+    font-size: 1.6rem; }
+    .navbar__linktext:link, .navbar__linktext:visited {
+      color: #fff;
+      text-decoration: none; }
+
+.login {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40rem;
+  padding: 5rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: 38rem;
+  font-family: "Ubuntu", sans-serif; }
+  .login__heading {
+    font-size: 2.5rem;
+    margin-bottom: 3rem; }
+  .login__textbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem; }
+  .login__newuser {
+    position: absolute;
+    top: 70%;
+    left: 42%; }
+    .login__newuser__text {
+      font-size: 2rem; }
+    .login__newuser__link {
+      color: #0a66c2;
+      font-size: 2rem; }
+      .login__newuser__link:link, .login__newuser__link:visited {
+        color: #0a66c2;
+        font-size: 2rem;
+        text-decoration: none; }
+      .login__newuser__link:hover {
+        font-weight: 600;
+        font-size: 2rem; }
+  .login__user__text {
+    font-size: 2rem; }
+  .login__user__link {
+    color: #0a66c2;
+    font-size: 2rem; }
+    .login__user__link:link, .login__user__link:visited {
+      font-size: 2rem;
+      color: #0a66c2;
+      text-decoration: none; }
+    .login__user__link:hover {
+      font-weight: 600;
+      font-size: 2rem; }
+
+.signup {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40rem;
+  padding: 5rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  height: 40rem;
+  font-family: "Ubuntu", sans-serif; }
+  .signup__heading {
+    font-size: 2.5rem;
+    margin-bottom: 3rem; }
+  .signup__textbox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem; }
+  .signup__label {
+    font-size: 1.5rem; }
+  .signup__user__text {
+    font-size: 2rem; }
+  .signup__user__link {
+    color: #0a66c2;
+    font-size: 2rem; }
+    .signup__user__link:link, .signup__user__link:visited {
+      color: #0a66c2;
+      font-size: 2rem;
+      text-decoration: none; }
+    .signup__user__link:hover {
+      font-weight: 600;
+      font-size: 2rem; }
