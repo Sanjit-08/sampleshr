@@ -4,10 +4,13 @@ import firebaseClient from "../firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { Button } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
+import { TextField, InputAdornment } from "@material-ui/core";
 import Link from "next/link";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -31,6 +34,11 @@ const Signup = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [erroropen, setErrorOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -94,7 +102,7 @@ const Signup = () => {
         </Alert>
       </Snackbar>
       <div className="signup">
-        <div className="signup__heading">Join Shramin</div>
+        <div className="signup__heading">Join ShramIn</div>
         <form onSubmit={(e) => handleForm(e)}>
           <label className="signup__label">Email</label>
           <div className="signup__textbox">
@@ -114,12 +122,25 @@ const Signup = () => {
             </label>
             <TextField
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               variant="outlined"
               fullWidth
               value={pass}
               onChange={(e) => setPass(e.target.value)}
-              InputProps={{ className: classes.input }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                className: classes.input,
+              }}
               InputLabelProps={{ className: classes.inputlabel }}
               style={{ marginTop: "10px" }}
             />
@@ -151,9 +172,9 @@ const Signup = () => {
 
         <div className="signup__user u-margin-top-medium u-center-text">
           <div className="signup__user__text">
-            Already on Shramin?
+            Already on ShramIn ?
             <Link href="/login">
-              <a className="signup__user__link"> Log In</a>
+              <a className="signup__user__link"> Login</a>
             </Link>
           </div>
         </div>

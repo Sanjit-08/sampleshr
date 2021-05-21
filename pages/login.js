@@ -5,9 +5,12 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
-import TextField from "@material-ui/core/TextField";
+import { TextField, InputAdornment } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -31,6 +34,12 @@ const Login = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [erroropen, setErrorOpen] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -94,7 +103,7 @@ const Login = () => {
         </Alert>
       </Snackbar>
       <div className="login">
-        <div className="login__heading">Login to Shramin</div>
+        <div className="login__heading">Login to ShramIn</div>
         <form onSubmit={(e) => handleForm(e)}>
           <div className="login__textbox">
             <TextField
@@ -111,13 +120,26 @@ const Login = () => {
 
             <TextField
               id="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               label="Password"
               variant="outlined"
               fullWidth
               value={pass}
               onChange={(e) => setPass(e.target.value)}
-              InputProps={{ className: classes.input }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+                className: classes.input,
+              }}
               InputLabelProps={{ className: classes.inputlabel }}
             />
           </div>
@@ -150,7 +172,7 @@ const Login = () => {
 
       <div className="login__newuser u-margin-top-small">
         <div className="login__newuser__text">
-          New to Shramin?
+          New to ShramIn?
           <Link href="/signup">
             <a className="login__newuser__link"> Sign Up</a>
           </Link>
