@@ -34,6 +34,7 @@ const Login = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
   const [erroropen, setErrorOpen] = useState(false);
+  const [passreset, SetPassreset] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -57,6 +58,14 @@ const Login = () => {
     setErrorOpen(false);
   };
 
+  const handleCloseReset = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    SetPassreset(false);
+  };
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -65,16 +74,50 @@ const Login = () => {
     setErrorOpen(true);
   };
 
+  const handlepassResetClick = () => {
+    SetPassreset(true);
+  };
+
+  const passwordReset = (e) => {
+    e.preventDefault();
+    handlepassResetClick();
+    var actionCodeSettings = {
+      url: `${window.location.origin}/login`,
+      handleCodeInApp: false,
+    };
+    firebase
+      .auth()
+      .sendPasswordResetEmail(email, actionCodeSettings)
+      .then(function () {
+        // Email sent.
+      })
+      .catch(function (error) {
+        // An error happened.
+        console.log(error);
+      });
+  };
   const handleForm = (e) => {
     e.preventDefault();
     console.log(error);
-    if (error === "") {
-      setOpen(true);
-    }
   };
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "center",
+          horizontal: "center",
+        }}
+        open={passreset}
+        autoHideDuration={6000}
+        onClose={handleCloseReset}
+      >
+        <Alert onClose={handleCloseReset} severity="success">
+          <span style={{ fontSize: "15px" }}>
+            We have sent a password reset link to your email
+          </span>
+        </Alert>
+      </Snackbar>
       <Snackbar
         anchorOrigin={{
           vertical: "center",
@@ -95,7 +138,7 @@ const Login = () => {
           horizontal: "center",
         }}
         open={erroropen}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleCloseError}
       >
         <Alert onClose={handleCloseError} severity="error">
@@ -142,6 +185,14 @@ const Login = () => {
               }}
               InputLabelProps={{ className: classes.inputlabel }}
             />
+
+            <a
+              href="/"
+              className="u-margin-top-small login__resetpassword"
+              onClick={(e) => passwordReset(e)}
+            >
+              Forgot password ?{" "}
+            </a>
           </div>
 
           <div className="login__button u-center-text margin-top-medium">
@@ -155,6 +206,7 @@ const Login = () => {
                   .auth()
                   .signInWithEmailAndPassword(email, pass)
                   .then(function () {
+                    setOpen(true);
                     window.location.href = "/";
                   })
                   .catch(function (error) {

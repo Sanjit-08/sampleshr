@@ -67,9 +67,6 @@ const Signup = () => {
   const handleForm = (e) => {
     e.preventDefault();
     console.log(error);
-    if (error === "") {
-      setOpen(true);
-    }
   };
 
   return (
@@ -157,6 +154,7 @@ const Signup = () => {
                 .auth()
                 .createUserWithEmailAndPassword(email, pass)
                 .then(function () {
+                  setOpen(true);
                   window.location.href = "/";
                 })
                 .catch(function (error) {
