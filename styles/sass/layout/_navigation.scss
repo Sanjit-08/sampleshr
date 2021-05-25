@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: $color-navigation;
+  height: 11rem;
+  padding: 4rem 8rem;
+  font-family: "Ubuntu", sans-serif;
+
+  &__logo {
+    float: left;
+    position: absolute;
+    left: 15rem;
+    top: 2.5rem;
+
+    &--text {
+      font-size: 4rem;
+      color: $color-white;
+      cursor: pointer;
+
+      //   &:hover {
+      //     color: $color-linkhover;
+      //   }
+    }
+
+    &--green {
+      color: $color-linkhover;
+      font-weight: 700;
+    }
+  }
+
+  &__list {
+    float: right;
+    position: absolute;
+    right: 40rem;
+    display: flex;
+
+    margin-top: 0.5rem;
+    color: $color-white;
+    list-style-type: none;
+  }
+
+  &__listitem {
+    font-size: 2rem;
+    display: flex;
+    font-weight: 400;
+    margin-right: 6rem;
+
+    &:link,
+    &:visited {
+      color: $color-white;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: $color-linkhover;
+      font-weight: 600;
+    }
+  }
+
+  &__link {
+    float: right;
+    margin-right: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  &__button {
+    outline: none;
+    border-radius: 10rem;
+    padding: 1.5rem 1.8rem;
+    border: 2px solid $color-linkhover;
+    font-size: 2rem;
+    color: $color-white;
+    cursor: pointer;
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+      color: $color-white;
+    }
+
+    &:active {
+      color: $color-white;
+    }
+
+    &:hover {
+      background: $color-linkhover;
+      font-weight: 600;
+    }
+  }
+}

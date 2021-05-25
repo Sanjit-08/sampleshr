@@ -207,7 +207,10 @@ const Login = () => {
                   .signInWithEmailAndPassword(email, pass)
                   .then(function () {
                     setOpen(true);
+                    // let change = setTimeout(() => {
                     window.location.href = "/";
+                    //   window.clearTimeout(change);
+                    // }, 2000);
                   })
                   .catch(function (error) {
                     const message = error.message;

@@ -14,11 +14,13 @@ const AuthContextProvider = ({ children }) => {
       if (!user) {
         setUser(null);
         localStorage.setItem("token", undefined);
+        localStorage.setItem("authtoken", false);
         return;
       }
       const token = await user.getIdToken();
       setUser(user);
       localStorage.setItem("token", token);
+      localStorage.setItem("authtoken", true);
     });
   }, []);
 
