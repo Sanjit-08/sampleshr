@@ -10,7 +10,7 @@ export default function Home() {
       {/* <Navbar /> */}
       <Navigation />
       <section className="hero">
-        <div className="hero__image">&nbsp;</div>
+        <img className="hero__image"></img>
       </section>
     </>
   );
