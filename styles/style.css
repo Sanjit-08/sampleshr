@@ -194,7 +194,7 @@ body {
     opacity: 0;
     width: 0;
     display: none;
-    transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
+    transition: width 1s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
   .navigation__list1 {
     position: absolute;
     top: 50%;
@@ -239,7 +239,7 @@ body {
     top: 3.5rem;
     right: 2rem;
     background: #001730;
-    transition: all 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+    transition: all 0.8s cubic-bezier(0.83, 0, 0.17, 1);
     display: none; }
     @media only screen and (max-width: 56.25em) {
       .navigation__background {

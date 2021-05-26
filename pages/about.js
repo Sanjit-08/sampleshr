@@ -1,5 +1,7 @@
 import React from "react";
 import Head from "next/head";
+import loadable from "@loadable/component";
+const Navigation = loadable(() => import("../components/Navigation"));
 
 const About = () => {
   return (
@@ -25,7 +27,15 @@ const About = () => {
           content="https://shramin.vercel.app/about"
         ></meta>
       </Head>
-      <h2>About</h2>
+      <Navigation />
+      <h2
+        style={{
+          marginTop: "200px",
+          textAlign: "center",
+        }}
+      >
+        About
+      </h2>
     </>
   );
 };
