@@ -3,7 +3,17 @@
 .signup {
   @include box;
   height: 49rem;
+  padding-top: 3rem;
   font-family: "Ubuntu", sans-serif;
+
+  @include respond(tab-land) {
+    height: 51rem;
+  }
+
+  @include respond(tab-port) {
+    top: 45% !important;
+    height: 60rem;
+  }
 
   &__heading {
     font-size: 2.5rem;

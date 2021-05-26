@@ -7,6 +7,10 @@ import theme from "../src/theme.js";
 import "../styles/sass/main.scss";
 import AuthContextProvider from "../auth";
 
+export function reportWebVitals(metric) {
+  console.log(metric);
+}
+
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
     // Remove the server-side injected CSS.

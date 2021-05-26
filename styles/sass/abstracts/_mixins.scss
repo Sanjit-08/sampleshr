@@ -15,6 +15,14 @@
   padding: 5rem;
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(#000, 0.15);
+
+  @include respond(tab-land) {
+    top: 25%;
+  }
+
+  @include respond(phone) {
+    top: 35%;
+  }
 }
 
 @mixin boxlink {
@@ -37,6 +45,12 @@
 
   @if $breakpoint==phone {
     @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==highresphone {
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
       @content;
     }
   }

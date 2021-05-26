@@ -5,6 +5,18 @@
   height: 39rem;
   font-family: "Ubuntu", sans-serif;
 
+  @include respond(tab-land) {
+    height: 42rem;
+  }
+
+  @include respond(tab-port) {
+    height: 48rem;
+  }
+
+  @include respond(phone) {
+    height: 51rem;
+  }
+
   &__heading {
     font-size: 2.5rem;
     margin-bottom: 3rem;
@@ -36,6 +48,20 @@
     position: relative;
     bottom: -50rem;
     text-align: center;
+
+    @include respond(tab-land) {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -15%);
+    }
+
+    @include respond(tab-port) {
+      position: absolute;
+      top: 75%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+    }
     &__text {
       font-size: 2rem;
     }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Head from "next/head";
 import firebaseClient from "../firebaseClient";
 import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase/app";
@@ -103,6 +104,28 @@ const Login = () => {
 
   return (
     <>
+      <Head>
+        <title>ShramIn Login | ShramIn</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE"></meta>
+        <meta charSet="UTF-8"></meta>
+        <meta name="robots" content="noarchive"></meta>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Login to ShramIn to create job opportunities for blue collar workers and keep a track of all the candidates."
+        />
+        <meta property="og:site_name" content="ShramIn"></meta>
+        <meta property="og:title" content="ShramIn Login | ShramIn" />
+        <meta
+          property="og:description"
+          content="Login to ShramIn to create job opportunities for blue collar workers and keep a track of all the candidates."
+        ></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta
+          property="og:url"
+          content="https://shramin.vercel.app/login"
+        ></meta>
+      </Head>
       <Snackbar
         anchorOrigin={{
           vertical: "center",
