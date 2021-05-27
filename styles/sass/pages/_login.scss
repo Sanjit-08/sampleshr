@@ -3,6 +3,7 @@
 
 .login {
   @include box;
+  z-index: 1;
   top: 53%;
   height: 48rem;
   font-family: "Ubuntu", sans-serif;

@@ -15,6 +15,7 @@
   padding: 5rem;
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(#000, 0.15);
+  @include clearfix;
 
   @include respond(tab-land) {
     top: 25%;
