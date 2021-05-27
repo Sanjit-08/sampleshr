@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:500");
 
 .login {
   @include box;
-  height: 39rem;
+  top: 53%;
+  height: 48rem;
   font-family: "Ubuntu", sans-serif;
 
   @include respond(tab-land) {
@@ -14,7 +16,77 @@
   }
 
   @include respond(phone) {
-    height: 51rem;
+    height: 58rem;
+  }
+
+  &__googlebutton {
+    width: 20.4rem;
+    height: 4.2rem;
+    background-color: $google-blue;
+    border-radius: 2px;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    margin-top: -1rem;
+    margin-left: 15%;
+  }
+
+  &__ortext {
+    font-size: 1.5rem;
+    margin-bottom: 1.7rem;
+    transform: translateX(-0.3rem);
+
+    &::before,
+    &::after {
+      content: "";
+      display: inline-block;
+      height: 0.1rem;
+      width: 8rem;
+      transform: translateY(-0.25rem);
+      background-color: rgba($color-black, 0.6);
+    }
+
+    &::before {
+      margin-right: 1rem;
+    }
+
+    &::after {
+      margin-left: 1rem;
+    }
+  }
+
+  &__giconwrapper {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2px;
+    background-color: $color-white;
+  }
+
+  &__gicon {
+    position: absolute;
+    margin-top: 1.1rem;
+    margin-left: 1rem;
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  &__btntext {
+    float: right;
+    margin: 1.1rem 1.1rem 0 0;
+    color: $color-white;
+    font-size: 1.6rem;
+    letter-spacing: 0.2px;
+    // font-family: "Roboto";
+    font-family: "Roboto";
+
+    &:hover {
+      box-shadow: 0 0 6px $google-blue;
+    }
+    &:active {
+      background: $button-active-blue;
+    }
   }
 
   &__heading {
@@ -46,8 +118,9 @@
 
   &__newuser {
     position: relative;
-    bottom: -50rem;
+    bottom: -63rem;
     text-align: center;
+    font-family: "Ubuntu", sans-serif;
 
     @include respond(tab-land) {
       position: absolute;
@@ -58,7 +131,7 @@
 
     @include respond(tab-port) {
       position: absolute;
-      top: 75%;
+      top: 85%;
       left: 50%;
       transform: translate(-50%, -10%);
     }
@@ -102,6 +175,22 @@
         font-weight: 600;
         font-size: 2rem;
       }
+    }
+  }
+}
+
+.activeuser {
+  display: flex;
+  justify-content: center;
+  margin-top: 15rem;
+
+  &__logo {
+    font-size: 4rem;
+    color: $color-navigation;
+    cursor: pointer;
+    &--green {
+      color: $color-linkhover;
+      font-weight: 700;
     }
   }
 }

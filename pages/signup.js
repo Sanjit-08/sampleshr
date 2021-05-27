@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import { makeStyles } from "@material-ui/core/styles";
 import firebaseClient from "../firebaseClient";
@@ -12,6 +12,9 @@ import MuiAlert from "@material-ui/lab/Alert";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import loadable from "@loadable/component";
+const Navigation = loadable(() => import("../components/Navigation"));
+import { AuthContext } from "../auth";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -29,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signup = () => {
+  const { user } = useContext(AuthContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -36,6 +40,12 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [erroropen, setErrorOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [show, setshow] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setshow(true);
+    }, 600);
+  }, [user]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -94,9 +104,10 @@ const Signup = () => {
           content="https://shramin.vercel.app/signup"
         ></meta>
       </Head>
+      <Navigation />
       <Snackbar
         anchorOrigin={{
-          vertical: "center",
+          vertical: "top",
           horizontal: "center",
         }}
         open={open}
@@ -110,7 +121,7 @@ const Signup = () => {
 
       <Snackbar
         anchorOrigin={{
-          vertical: "center",
+          vertical: "top",
           horizontal: "center",
         }}
         open={erroropen}
@@ -121,85 +132,99 @@ const Signup = () => {
           <span style={{ fontSize: "15px" }}>{error}</span>
         </Alert>
       </Snackbar>
-      <div className="signup">
-        <div className="signup__heading">Join ShramIn</div>
-        <form onSubmit={(e) => handleForm(e)}>
-          <label className="signup__label">Email</label>
-          <div className="signup__textbox">
-            <TextField
-              id="email"
-              variant="outlined"
-              fullWidth
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              InputProps={{ className: classes.input }}
-              InputLabelProps={{ className: classes.inputlabel }}
-              style={{ marginBottom: "40px", marginTop: "10px" }}
-            />
+      {!user && show ? (
+        <div className="signup">
+          <div className="signup__heading">Join ShramIn</div>
+          <form onSubmit={(e) => handleForm(e)}>
+            <label className="signup__label">Email</label>
+            <div className="signup__textbox">
+              <TextField
+                id="email"
+                variant="outlined"
+                fullWidth
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                InputProps={{ className: classes.input }}
+                InputLabelProps={{ className: classes.inputlabel }}
+                style={{ marginBottom: "40px", marginTop: "10px" }}
+              />
 
-            <label className="signup__label">
-              Password(6 or more characters)
-            </label>
-            <TextField
-              id="password"
-              type={showPassword ? "text" : "password"}
-              variant="outlined"
-              fullWidth
-              value={pass}
-              onChange={(e) => setPass(e.target.value)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                className: classes.input,
+              <label className="signup__label">
+                Password(6 or more characters)
+              </label>
+              <TextField
+                id="password"
+                type={showPassword ? "text" : "password"}
+                variant="outlined"
+                fullWidth
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                  className: classes.input,
+                }}
+                InputLabelProps={{ className: classes.inputlabel }}
+                style={{ marginTop: "10px" }}
+              />
+            </div>
+          </form>
+
+          <div className="signup__button u-center-text margin-top-medium">
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ padding: "3px 15px", fontSize: "15px" }}
+              onClick={async () => {
+                await firebase
+                  .auth()
+                  .createUserWithEmailAndPassword(email, pass)
+                  .then(function () {
+                    setOpen(true);
+                    window.location.href = "/";
+                  })
+                  .catch(function (error) {
+                    const message = error.message;
+                    setError(message);
+                    handleErrorClick();
+                  });
               }}
-              InputLabelProps={{ className: classes.inputlabel }}
-              style={{ marginTop: "10px" }}
-            />
+            >
+              SIGNUP
+            </Button>
           </div>
-        </form>
 
-        <div className="signup__button u-center-text margin-top-medium">
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ padding: "3px 15px", fontSize: "15px" }}
-            onClick={async () => {
-              await firebase
-                .auth()
-                .createUserWithEmailAndPassword(email, pass)
-                .then(function () {
-                  setOpen(true);
-                  window.location.href = "/";
-                })
-                .catch(function (error) {
-                  const message = error.message;
-                  setError(message);
-                  handleErrorClick();
-                });
-            }}
-          >
-            SIGNUP
-          </Button>
-        </div>
-
-        <div className="signup__user u-margin-top-medium u-center-text">
-          <div className="signup__user__text">
-            Already on ShramIn ?
-            <Link href="/login">
-              <a className="signup__user__link"> Login</a>
-            </Link>
+          <div className="signup__user u-margin-top-medium u-center-text">
+            <div className="signup__user__text">
+              Already on ShramIn ?
+              <Link href="/login">
+                <a className="signup__user__link"> Login</a>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
+
+      {user && show ? (
+        <div className="activeuser">
+          <div className="activeuser__logo">
+            Welcome to Shram<span className="activeuser__logo--green">In</span>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
