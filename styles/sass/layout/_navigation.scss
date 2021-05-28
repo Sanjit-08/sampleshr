@@ -131,7 +131,7 @@
     opacity: 0;
     width: 0;
     // display: none;
-    transition: width 1s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
   }
 
   &__list1 {
@@ -196,7 +196,7 @@
     top: 3.5rem;
     right: 2rem;
     background: $color-navigation;
-    transition: all 0.8s cubic-bezier(0.83, 0, 0.17, 1);
+    transition: all 1s cubic-bezier(0.83, 0, 0.17, 1);
     // display: none;
 
     // @include respond(tab-port) {

@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Signup = () => {
   const { user } = useContext(AuthContext);
+  const { authuser } = useContext(AuthContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -40,12 +41,6 @@ const Signup = () => {
   const [error, setError] = useState("");
   const [erroropen, setErrorOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [show, setshow] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setshow(true);
-    }, 600);
-  }, [user]);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -132,7 +127,7 @@ const Signup = () => {
           <span style={{ fontSize: "15px" }}>{error}</span>
         </Alert>
       </Snackbar>
-      {!user && show ? (
+      {!authuser ? (
         <div className="signup">
           <div className="signup__heading">Join ShramIn</div>
           <form onSubmit={(e) => handleForm(e)}>
@@ -216,7 +211,7 @@ const Signup = () => {
         ""
       )}
 
-      {user && show ? (
+      {authuser ? (
         <div className="activeuser">
           <div className="activeuser__logo">
             Welcome to Shram<span className="activeuser__logo--green">In</span>

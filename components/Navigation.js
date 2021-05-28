@@ -5,12 +5,13 @@ import { AuthContext } from "../auth";
 
 const Navigation = (props) => {
   const { user } = useContext(AuthContext);
-  const [show, setshow] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setshow(true);
-    }, 500);
-  }, [user]);
+  const { authuser } = useContext(AuthContext);
+  // const [show, setshow] = useState(false);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setshow(true);
+  //   }, 500);
+  // }, [user]);
   const logout = async (e) => {
     e.preventDefault();
     await firebase.auth().signOut();
@@ -68,7 +69,7 @@ const Navigation = (props) => {
         </ul>
       </div>
 
-      {!user && show ? (
+      {!authuser ? (
         <div className="navigation__link">
           <Link href="/login">
             <a className="navigation__button">Employer Login</a>
@@ -77,7 +78,7 @@ const Navigation = (props) => {
       ) : (
         ""
       )}
-      {user && show ? (
+      {authuser ? (
         <div className="navigation__link">
           <a
             className="navigation__button"

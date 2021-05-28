@@ -7,6 +7,7 @@ import "firebase/auth";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
 import { TextField, InputAdornment } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import IconButton from "@material-ui/core/IconButton";
@@ -35,7 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = () => {
   const { user } = useContext(AuthContext);
-  // const [user, setUser] = useState(null);
+  const { authuser } = useContext(AuthContext);
+  const [tokenauth, setTokenAuth] = useState(false);
+  const [show, setShow] = useState(false);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -44,22 +47,10 @@ const Login = () => {
   const [erroropen, setErrorOpen] = useState(false);
   const [passreset, SetPassreset] = useState(false);
   const [emailId, setEmailId] = useState("");
-
+  const [loading, setloading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [show, setshow] = useState(false);
-
-  useEffect(() => {
-    if (!isMobile) {
-      setTimeout(() => {
-        setshow(true);
-      }, 700);
-    }
-    if (isMobile) {
-      setTimeout(() => {
-        setshow(true);
-      }, 700);
-    }
-  }, [user]);
+  const [statechanged, setstatechanged] = useState(false);
+  const [click, setClick] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -111,11 +102,8 @@ const Login = () => {
     firebase
       .auth()
       .sendPasswordResetEmail(email, actionCodeSettings)
-      .then(function () {
-        // Email sent.
-      })
+      .then(function () {})
       .catch(function (error) {
-        // An error happened.
         console.log(error);
       });
   };
@@ -123,6 +111,19 @@ const Login = () => {
     e.preventDefault();
     console.log(error);
   };
+  /* global localStorage */
+
+  // Use localStorage below with no linter errors
+  useEffect(() => {
+    console.log(authtoken);
+    const authtoken = localStorage.getItem("authtoken");
+    setTokenAuth(authtoken);
+    if (!authtoken) {
+      setloading(false);
+    } else {
+      setloading(true);
+    }
+  }, [authuser]);
 
   var provider = new firebase.auth.GoogleAuthProvider();
   const googleSignIn = () => {
@@ -135,7 +136,7 @@ const Login = () => {
 
         var token = credential.accessToken;
         setOpen(true);
-        window.location.href = "/";
+        // window.location.href = "/";
         var user = result.user;
         // console.log(user.email);
         setEmailId(user.email);
@@ -149,39 +150,18 @@ const Login = () => {
   };
 
   const googleSignInWithMobile = () => {
-    firebase
-      .auth()
-      .signInWithRedirect(provider)
-      .getRedirectResult()
-      .then((result) => {
-        /** @type {firebase.auth.OAuthCredential} */
-        var credential = result.credential;
-        console.log(credential);
+    firebase.auth().getRedirectResult();
 
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = credential.accessToken;
-        setOpen(true);
-        window.location.href = "/";
-        // ...
-
-        // The signed-in user info.
-        var user = result.user;
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-
-    setshow(false);
+    setShow(true);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope("profile");
+    provider.addScope("email");
+    firebase.auth().signInWithRedirect(provider);
   };
 
-  console.log(show);
+  // console.log(authuser);
+  // console.log(loading);
+  // console.log(click);
 
   return (
     <>
@@ -250,7 +230,7 @@ const Login = () => {
           <span style={{ fontSize: "15px" }}>{error}</span>
         </Alert>
       </Snackbar>
-      {!user && show ? (
+      {!authuser ? (
         <div className="login">
           <div className="login__gbox">
             <MediaQuery minDeviceWidth={1224}>
@@ -267,6 +247,8 @@ const Login = () => {
                 <div className="login__btntext">Sign in with Google</div>
               </div>
             </MediaQuery>
+          </div>
+          <div className="login__gbox">
             <MediaQuery maxDeviceWidth={1224}>
               <div
                 className="login__googlebutton"
@@ -367,7 +349,7 @@ const Login = () => {
         ""
       )}
 
-      {!user && show ? (
+      {!authuser ? (
         <div className="login__newuser u-margin-top-small">
           <div className="login__newuser__text">
             New to ShramIn?
@@ -380,7 +362,7 @@ const Login = () => {
         ""
       )}
 
-      {user && show ? (
+      {authuser ? (
         <div className="activeuser">
           <div className="activeuser__logo">
             Welcome to Shram<span className="activeuser__logo--green">In</span>

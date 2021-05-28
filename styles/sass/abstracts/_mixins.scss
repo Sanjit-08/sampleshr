@@ -24,6 +24,10 @@
   @include respond(phone) {
     top: 45%;
   }
+
+  @include respond(smallphone) {
+    top: 48%;
+  }
 }
 
 @mixin boxlink {
@@ -46,6 +50,12 @@
 
   @if $breakpoint==phone {
     @media only screen and (max-width: 37.5em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==smallphone {
+    @media only screen and (max-width: 23em) {
       @content;
     }
   }

@@ -8,6 +8,16 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   firebaseClient();
   const [user, setUser] = useState(null);
+  const [authuser, setAuthUser] = useState(() => {
+    const authuser = firebase.auth().currentUser;
+    return authuser;
+  });
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+      setAuthUser(firebaseUser);
+    });
+  }, []);
 
   useEffect(() => {
     return firebase.auth().onIdTokenChanged(async (user) => {
@@ -25,7 +35,7 @@ const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user: user }}>
+    <AuthContext.Provider value={{ user: user, authuser: authuser }}>
       {children}
     </AuthContext.Provider>
   );

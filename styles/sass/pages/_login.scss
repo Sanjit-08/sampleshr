@@ -3,7 +3,6 @@
 
 .login {
   @include box;
-  z-index: 1;
   top: 53%;
   height: 48rem;
   font-family: "Ubuntu", sans-serif;
@@ -135,6 +134,10 @@
       top: 85%;
       left: 50%;
       transform: translate(-50%, -10%);
+    }
+
+    @include respond(smallphone) {
+      top: 92%;
     }
     &__text {
       font-size: 2rem;

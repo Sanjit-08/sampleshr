@@ -112,6 +112,7 @@ body {
   background: #001730;
   height: 11rem;
   padding: 4rem 8rem;
+  z-index: 1000;
   font-family: "Ubuntu", sans-serif; }
   .navigation__logo {
     float: left;
@@ -191,11 +192,10 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1600;
+    z-index: 1500;
     opacity: 0;
     width: 0;
-    display: none;
-    transition: width 1s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
+    transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6); }
   .navigation__list1 {
     position: absolute;
     top: 50%;
@@ -240,11 +240,7 @@ body {
     top: 3.5rem;
     right: 2rem;
     background: #001730;
-    transition: all 0.8s cubic-bezier(0.83, 0, 0.17, 1);
-    display: none; }
-    @media only screen and (max-width: 56.25em) {
-      .navigation__background {
-        display: inline-block; } }
+    transition: all 1s cubic-bezier(0.83, 0, 0.17, 1); }
   .navigation__checkbox:checked ~ .navigation__background {
     transform: scale(80); }
   .navigation__checkbox:checked ~ .navigation__nav {
@@ -321,12 +317,22 @@ body {
   top: 53%;
   height: 48rem;
   font-family: "Ubuntu", sans-serif; }
+  .login::after {
+    content: "";
+    display: table;
+    clear: both; }
   @media only screen and (max-width: 75em) {
     .login {
       top: 25%; } }
   @media only screen and (max-width: 37.5em) {
     .login {
       top: 45%; } }
+  @media only screen and (max-width: 23em) {
+    .login {
+      top: 48%; } }
+  @media only screen and (max-width: 25em) {
+    .login {
+      top: 48%; } }
   @media only screen and (max-width: 75em) {
     .login {
       height: 42rem; } }
@@ -418,6 +424,12 @@ body {
         top: 85%;
         left: 50%;
         transform: translate(-50%, -10%); } }
+    @media only screen and (max-width: 23em) {
+      .login__newuser {
+        top: 92%; } }
+    @media only screen and (max-width: 25em) {
+      .login__newuser {
+        top: 92%; } }
     .login__newuser__text {
       font-size: 2rem; }
     .login__newuser__link {
@@ -468,12 +480,22 @@ body {
   height: 49rem;
   padding-top: 3rem;
   font-family: "Ubuntu", sans-serif; }
+  .signup::after {
+    content: "";
+    display: table;
+    clear: both; }
   @media only screen and (max-width: 75em) {
     .signup {
       top: 25%; } }
   @media only screen and (max-width: 37.5em) {
     .signup {
       top: 45%; } }
+  @media only screen and (max-width: 23em) {
+    .signup {
+      top: 48%; } }
+  @media only screen and (max-width: 25em) {
+    .signup {
+      top: 48%; } }
   @media only screen and (max-width: 75em) {
     .signup {
       height: 51rem; } }
@@ -481,6 +503,12 @@ body {
     .signup {
       top: 45% !important;
       height: 60rem; } }
+  @media only screen and (max-width: 23em) {
+    .signup {
+      top: 50% !important; } }
+  @media only screen and (max-width: 25em) {
+    .signup {
+      top: 50% !important; } }
   .signup__heading {
     font-size: 2.5rem;
     margin-bottom: 3rem; }
