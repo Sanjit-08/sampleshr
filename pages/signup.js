@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import loadable from "@loadable/component";
+import { isMobile } from "react-device-detect";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
 
@@ -20,10 +21,16 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
+var height = "50px";
+if (isMobile) {
+  height = "30px";
+}
+
 const useStyles = makeStyles((theme) => ({
   input: {
     fontSize: 15,
     width: "90%",
+    height: height,
   },
   inputlabel: {
     fontSize: 15,
@@ -185,7 +192,7 @@ const Signup = () => {
                   .createUserWithEmailAndPassword(email, pass)
                   .then(function () {
                     setOpen(true);
-                    window.location.href = "/";
+                    // window.location.href = "/";
                   })
                   .catch(function (error) {
                     const message = error.message;

@@ -34,10 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
-  const { user } = useContext(AuthContext);
   const { authuser } = useContext(AuthContext);
-  const { authtoken } = useContext(AuthContext);
-  // const [tokenauth, setTokenAuth] = useState(false);
   const [show, setShow] = useState(false);
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -46,12 +43,10 @@ const Login = (props) => {
   const [error, setError] = useState("");
   const [erroropen, setErrorOpen] = useState(false);
   const [passreset, SetPassreset] = useState(false);
-  const [emailId, setEmailId] = useState("");
-  const [loading, setloading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [statechanged, setstatechanged] = useState(false);
-  const [click, setClick] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [click, setClick] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
@@ -111,19 +106,12 @@ const Login = (props) => {
     e.preventDefault();
     console.log(error);
   };
-  /* global localStorage */
 
-  // Use localStorage below with no linter errors
-  // useEffect(() => {
-  //   console.log(authtoken);
-  //   const authtoken = localStorage.getItem("authtoken");
-  //   setTokenAuth(authtoken);
-  //   if (!authtoken) {
-  //     setloading(false);
-  //   } else {
-  //     setloading(true);
-  //   }
-  // }, [authuser]);
+  useEffect(() => {
+    if (authuser) {
+      setShow(false);
+    }
+  });
 
   var provider = new firebase.auth.GoogleAuthProvider();
   const googleSignIn = () => {
@@ -132,33 +120,37 @@ const Login = (props) => {
       .signInWithPopup(provider)
       .then((result) => {
         var credential = result.credential;
-        // console.log(credential);
 
         var token = credential.accessToken;
         setOpen(true);
-        // setClick(true);
-        // window.location.href = "/";
         var user = result.user;
-        // console.log(user.email);
+
         setEmailId(user.email);
-        // ...
       })
       .catch((error) => {
         var errorMessage = error.message;
-        // setError(errorMessage);
-        // handleErrorClick();
       });
   };
 
-  const googleSignInWithMobile = (e) => {
-    e.preventDefault();
+  const googleSignInWithMobile = () => {
     document.getElementById("log").style.display = "none";
     document.getElementById("newuser").style.display = "none";
-    firebase.auth().signInWithRedirect(provider);
+    setShow(true);
+    setClick(true);
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(() => {
+        setClick(true);
+      });
   };
 
+  console.log(click);
   function initApp() {
     console.log("Running");
+    // if (authuser) {
+    //   setShow(false);
+    // }
     setShow(true);
     document.getElementById("log").style.display = "none";
     document.getElementById("newuser").style.display = "none";
@@ -169,15 +161,15 @@ const Login = (props) => {
       .getRedirectResult()
       .then(function (result) {
         if (result.credential) {
-          // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken;
           console.log(token);
+          setOpen(true);
+          setToken(token);
           setShow(false);
-          // [START_EXCLUDE]
         } else {
-          // [END_EXCLUDE]
+          setShow(false);
+          console.log("No Token");
         }
-        // The signed-in user info.
         var user = result.user;
         document.getElementById("log").style.display = "block";
         document.getElementById("newuser").style.display = "block";
@@ -185,20 +177,14 @@ const Login = (props) => {
         document.getElementById("newuser").style.opacity = 1;
       })
       .catch(function (error) {
-        // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
         var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        // [START_EXCLUDE]
         if (errorCode === "auth/account-exists-with-different-credential") {
           alert(
             "You have already signed up with a different auth provider for that email."
           );
-          // If you are using multiple auth providers on your app you should handle linking
-          // the user's accounts here.
         } else {
           console.error(error);
         }
@@ -210,6 +196,7 @@ const Login = (props) => {
       initApp();
     };
   }
+
   return (
     <>
       <Head>
@@ -360,10 +347,6 @@ const Login = (props) => {
                     .signInWithEmailAndPassword(email, pass)
                     .then(function () {
                       setOpen(true);
-                      // let change = setTimeout(() => {
-                      window.location.href = "/";
-                      //   window.clearTimeout(change);
-                      // }, 2000);
                     })
                     .catch(function (error) {
                       const message = error.message;
@@ -398,8 +381,11 @@ const Login = (props) => {
         <CircularProgress
           size="35px"
           style={{
-            marginTop: 250,
+            marginTop: 180,
             marginLeft: 170,
+            color: "#4ad7d1",
+            fontWeight: "bold",
+            zIndex: -1,
           }}
         />
       ) : (
