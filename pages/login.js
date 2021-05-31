@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import { makeStyles } from "@material-ui/core/styles";
 import firebase from "firebase/app";
-import firebaseClient from "../firebaseClient";
 import "firebase/auth";
 import { Button } from "@material-ui/core";
 import Link from "next/link";
@@ -34,10 +33,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = (props) => {
   const { user } = useContext(AuthContext);
   const { authuser } = useContext(AuthContext);
-  const [tokenauth, setTokenAuth] = useState(false);
+  const { authtoken } = useContext(AuthContext);
+  // const [tokenauth, setTokenAuth] = useState(false);
   const [show, setShow] = useState(false);
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -114,16 +114,16 @@ const Login = () => {
   /* global localStorage */
 
   // Use localStorage below with no linter errors
-  useEffect(() => {
-    console.log(authtoken);
-    const authtoken = localStorage.getItem("authtoken");
-    setTokenAuth(authtoken);
-    if (!authtoken) {
-      setloading(false);
-    } else {
-      setloading(true);
-    }
-  }, [authuser]);
+  // useEffect(() => {
+  //   console.log(authtoken);
+  //   const authtoken = localStorage.getItem("authtoken");
+  //   setTokenAuth(authtoken);
+  //   if (!authtoken) {
+  //     setloading(false);
+  //   } else {
+  //     setloading(true);
+  //   }
+  // }, [authuser]);
 
   var provider = new firebase.auth.GoogleAuthProvider();
   const googleSignIn = () => {
@@ -136,6 +136,7 @@ const Login = () => {
 
         var token = credential.accessToken;
         setOpen(true);
+        // setClick(true);
         // window.location.href = "/";
         var user = result.user;
         // console.log(user.email);
@@ -149,20 +150,66 @@ const Login = () => {
       });
   };
 
-  const googleSignInWithMobile = () => {
-    firebase.auth().getRedirectResult();
-
-    setShow(true);
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope("profile");
-    provider.addScope("email");
+  const googleSignInWithMobile = (e) => {
+    e.preventDefault();
+    document.getElementById("log").style.display = "none";
+    document.getElementById("newuser").style.display = "none";
     firebase.auth().signInWithRedirect(provider);
   };
 
-  // console.log(authuser);
-  // console.log(loading);
-  // console.log(click);
+  function initApp() {
+    console.log("Running");
+    setShow(true);
+    document.getElementById("log").style.display = "none";
+    document.getElementById("newuser").style.display = "none";
+    document.getElementById("log").style.opacity = 0;
+    document.getElementById("newuser").style.opacity = 0;
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then(function (result) {
+        if (result.credential) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          console.log(token);
+          setShow(false);
+          // [START_EXCLUDE]
+        } else {
+          // [END_EXCLUDE]
+        }
+        // The signed-in user info.
+        var user = result.user;
+        document.getElementById("log").style.display = "block";
+        document.getElementById("newuser").style.display = "block";
+        document.getElementById("log").style.opacity = 1;
+        document.getElementById("newuser").style.opacity = 1;
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // [START_EXCLUDE]
+        if (errorCode === "auth/account-exists-with-different-credential") {
+          alert(
+            "You have already signed up with a different auth provider for that email."
+          );
+          // If you are using multiple auth providers on your app you should handle linking
+          // the user's accounts here.
+        } else {
+          console.error(error);
+        }
+      });
+  }
 
+  if (typeof window !== "undefined" && isMobile) {
+    window.onload = function () {
+      initApp();
+    };
+  }
   return (
     <>
       <Head>
@@ -231,39 +278,24 @@ const Login = () => {
         </Alert>
       </Snackbar>
       {!authuser ? (
-        <div className="login">
+        <div className="login" id="log">
           <div className="login__gbox">
-            <MediaQuery minDeviceWidth={1224}>
-              <div
-                className="login__googlebutton"
-                onClick={() => googleSignIn()}
-              >
-                <div className="login__giconwrapper">
-                  <img
-                    className="login__gicon"
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  />
-                </div>
-                <div className="login__btntext">Sign in with Google</div>
+            <div
+              className="login__googlebutton"
+              onClick={(e) =>
+                isMobile ? googleSignInWithMobile(e) : googleSignIn()
+              }
+            >
+              <div className="login__giconwrapper">
+                <img
+                  className="login__gicon"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                />
               </div>
-            </MediaQuery>
+              <div className="login__btntext">Sign in with Google</div>
+            </div>
           </div>
-          <div className="login__gbox">
-            <MediaQuery maxDeviceWidth={1224}>
-              <div
-                className="login__googlebutton"
-                onClick={() => googleSignInWithMobile()}
-              >
-                <div className="login__giconwrapper">
-                  <img
-                    className="login__gicon"
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  />
-                </div>
-                <div className="login__btntext">Sign in with Google</div>
-              </div>
-            </MediaQuery>
-          </div>
+
           <div className="u-margin-top-small u-center-text login__ortext">
             OR
           </div>
@@ -350,7 +382,7 @@ const Login = () => {
       )}
 
       {!authuser ? (
-        <div className="login__newuser u-margin-top-small">
+        <div className="login__newuser u-margin-top-small" id="newuser">
           <div className="login__newuser__text">
             New to ShramIn?
             <Link href="/signup">
@@ -358,6 +390,18 @@ const Login = () => {
             </Link>
           </div>
         </div>
+      ) : (
+        ""
+      )}
+
+      {show ? (
+        <CircularProgress
+          size="35px"
+          style={{
+            marginTop: 250,
+            marginLeft: 170,
+          }}
+        />
       ) : (
         ""
       )}
