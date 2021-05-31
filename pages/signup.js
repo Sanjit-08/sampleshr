@@ -21,20 +21,24 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-var height = "50px";
-if (isMobile) {
-  height = "30px";
-}
-
 const useStyles = makeStyles((theme) => ({
   input: {
     fontSize: 15,
+    fontWeight: 300,
     width: "90%",
-    height: height,
+    height: "50px",
+    outline: "0",
+    border: "0",
+    boxShadow: "0 0 0 1000px white inset",
+    backgroundColor: "white",
+    "&:focused": {
+      backgroundColor: "white",
+    },
   },
   inputlabel: {
     fontSize: 15,
     backgroundColor: "white",
+    boxShadow: "0 0 0 1000px white inset",
   },
 }));
 

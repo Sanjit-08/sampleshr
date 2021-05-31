@@ -41,6 +41,7 @@ const Login = (props) => {
   const [pass, setPass] = useState("");
   const [open, setOpen] = useState(false);
   const [error, setError] = useState("");
+  const [emailerroropen, setEmailError] = useState(false);
   const [erroropen, setErrorOpen] = useState(false);
   const [passreset, SetPassreset] = useState(false);
 
@@ -75,6 +76,14 @@ const Login = (props) => {
     SetPassreset(false);
   };
 
+  const handleCloseEmailError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setEmailError(false);
+  };
+
   const handleClick = () => {
     setOpen(true);
   };
@@ -89,7 +98,12 @@ const Login = (props) => {
 
   const passwordReset = (e) => {
     e.preventDefault();
-    handlepassResetClick();
+    if (email === "") {
+      setEmailError(true);
+    }
+    if (email !== "") {
+      handlepassResetClick();
+    }
     var actionCodeSettings = {
       url: `${window.location.origin}/login`,
       handleCodeInApp: false,
@@ -242,8 +256,22 @@ const Login = (props) => {
           vertical: "top",
           horizontal: "center",
         }}
+        open={emailerroropen}
+        autoHideDuration={3000}
+        onClose={handleCloseEmailError}
+      >
+        <Alert onClose={handleCloseEmailError} severity="error">
+          <span style={{ fontSize: "15px" }}>Enter a valid email address</span>
+        </Alert>
+      </Snackbar>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
         open={open}
-        autoHideDuration={6000}
+        autoHideDuration={3000}
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="success">
