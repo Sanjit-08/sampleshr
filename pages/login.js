@@ -17,7 +17,8 @@ import MediaQuery from "react-responsive";
 import { isMobile } from "react-device-detect";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
-
+import { useLocation } from "react-router-dom";
+import { useRouter } from "next/router";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
+  // const location = useLocation();
+  // console.log(location);
+  const router = useRouter();
+  const path = router.pathname;
   const { authuser } = useContext(AuthContext);
   const [show, setShow] = useState(false);
   const classes = useStyles();
@@ -137,6 +142,7 @@ const Login = (props) => {
 
         var token = credential.accessToken;
         setOpen(true);
+        window.location.href = "/dashboard";
         var user = result.user;
 
         setEmailId(user.email);
@@ -178,6 +184,7 @@ const Login = (props) => {
           var token = result.credential.accessToken;
           console.log(token);
           setOpen(true);
+          window.location.href = "/dashboard";
           setToken(token);
           setShow(false);
         } else {
@@ -230,10 +237,7 @@ const Login = (props) => {
           content="Login to ShramIn to create job opportunities for blue collar workers and keep a track of all the candidates."
         ></meta>
         <meta property="og:type" content="website"></meta>
-        <meta
-          property="og:url"
-          content="https://shramin.vercel.app/login"
-        ></meta>
+        <meta property="og:url" content="https://shramin.vercel.app/login" />
       </Head>
       <Navigation />
       <Snackbar
@@ -375,6 +379,7 @@ const Login = (props) => {
                     .signInWithEmailAndPassword(email, pass)
                     .then(function () {
                       setOpen(true);
+                      window.location.href = "/dashboard";
                     })
                     .catch(function (error) {
                       const message = error.message;

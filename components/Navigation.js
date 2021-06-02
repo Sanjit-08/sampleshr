@@ -2,10 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import firebase from "firebase/app";
 import { AuthContext } from "../auth";
+import { useRouter } from "next/router";
 
 const Navigation = (props) => {
   const { user } = useContext(AuthContext);
   const { authuser } = useContext(AuthContext);
+  const router = useRouter();
+  const pathname = router.pathname;
+  const path = pathname === "/dashboard" ? false : true;
   // const [show, setshow] = useState(false);
   // useEffect(() => {
   //   setTimeout(() => {
@@ -15,6 +19,9 @@ const Navigation = (props) => {
   const logout = async (e) => {
     e.preventDefault();
     await firebase.auth().signOut();
+    if (!path) {
+      window.location.href = "/login";
+    }
   };
   const hidebackground = () => {
     var nav = document.getElementById("navi-toggle");
@@ -66,6 +73,86 @@ const Navigation = (props) => {
               </a>
             </Link>
           </li>
+
+          {authuser ? (
+            <li className="navigation__item">
+              <Link href="/dashboard">
+                <a
+                  className="navigation__link1"
+                  onClick={() => hidebackground()}
+                >
+                  {" "}
+                  Dashboard
+                </a>
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {authuser ? (
+            <li className="navigation__item">
+              <Link href="/createjob">
+                <a
+                  className="navigation__link1"
+                  onClick={() => hidebackground()}
+                >
+                  {" "}
+                  Create Job
+                </a>
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {authuser ? (
+            <li className="navigation__item">
+              <Link href="/profile">
+                <a
+                  className="navigation__link1"
+                  onClick={() => hidebackground()}
+                >
+                  {" "}
+                  Candidates Profile
+                </a>
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {authuser ? (
+            <li className="navigation__item">
+              <Link href="/status">
+                <a
+                  className="navigation__link1"
+                  onClick={() => hidebackground()}
+                >
+                  {" "}
+                  Candidates Status
+                </a>
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
+
+          {authuser ? (
+            <li className="navigation__item">
+              <Link href="/jobs">
+                <a
+                  className="navigation__link1"
+                  onClick={() => hidebackground()}
+                >
+                  {" "}
+                  My Jobs
+                </a>
+              </Link>
+            </li>
+          ) : (
+            ""
+          )}
         </ul>
       </div>
 
@@ -110,6 +197,15 @@ const Navigation = (props) => {
             <a className="navigation__listitem">Features</a>
           </Link>
         </li>
+        {!path ? (
+          <li>
+            <Link href="/createjob">
+              <a className="navigation__listitem">Create Job</a>
+            </Link>
+          </li>
+        ) : (
+          ""
+        )}
       </ul>
     </section>
   );

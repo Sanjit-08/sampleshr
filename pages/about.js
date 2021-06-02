@@ -26,6 +26,30 @@ const About = () => {
           property="og:url"
           content="https://shramin.vercel.app/about"
         ></meta>
+        <meta name="twitter:card" content="app" />
+        <meta name="twitter:site" content="@https://shramin.vercel.app/" />
+        <meta
+          name="twitter:description"
+          content="Jobs for Blue collar workers.Employment opportunities for blue collar workers.Jobs for machine repair,AC repair,phone repair.Machine operator jobs."
+        />
+        <meta name="twitter:app:name:googleplay" content="ShramIn" />
+        <meta
+          name="twitter:app:url:googleplay"
+          content="https://shramin.vercel.app/"
+        />
+        <meta name="twitter:app:id:googleplay" content="" />
+        <meta name="twitter:app:name:ipad" content="ShramIn" />
+        <meta
+          name="twitter:app:url:ipad"
+          content="https://shramin.vercel.app/"
+        />
+        <meta name="twitter:app:id:ipad" content="" />
+        <meta name="twitter:app:name:iphone" content="ShramIn" />
+        <meta
+          name="twitter:app:url:iphone"
+          content="https://shramin.vercel.app/"
+        />
+        <meta name="twitter:app:id:iphone" content=""></meta>
       </Head>
       <Navigation />
       <h2

@@ -14,7 +14,7 @@
   &__logo {
     float: left;
     position: absolute;
-    left: 15rem;
+    left: 6rem;
     top: 2.5rem;
 
     &--text {
@@ -43,9 +43,9 @@
   }
 
   &__list {
-    float: right;
+    float: left;
     position: absolute;
-    right: 40rem;
+    left: 45rem;
     display: flex;
 
     margin-top: 0.5rem;
@@ -157,7 +157,7 @@
       padding: 1rem 2rem;
       display: inline-block;
       transition: all 0.2s;
-      font-size: 5rem;
+      font-size: 3rem;
     }
 
     &:hover,
