@@ -1,0 +1,90 @@
+.jobheadline {
+  font-size: 3rem;
+  margin-left: 8rem;
+}
+
+.jobcard {
+  text-align: center;
+  width: 60%;
+  height: 20rem;
+  margin-left: 40rem;
+  border-radius: 1rem;
+  border: 1px solid grey;
+  padding: 4rem 7rem;
+  padding-left: 2rem;
+  margin-bottom: 10rem;
+  position: relative;
+
+  &__shape {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid grey;
+    float: left;
+    position: relative;
+  }
+
+  &__image {
+    width: 170%;
+    background-size: cover;
+    transform: translate(-5%, 29%);
+    height: 100%;
+    background: url("../../../public/logo.png");
+    backface-visibility: hidden;
+  }
+
+  &__information {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    margin-left: 5rem;
+    position: relative;
+  }
+
+  &__profile {
+    font-size: 1.7rem;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  &__company {
+    font-size: 1.4rem;
+    margin-left: -1.8rem;
+    margin-bottom: 0.4rem;
+  }
+  &__location {
+    font-size: 1.4rem;
+    left: 0rem;
+    top: 5rem;
+    position: absolute;
+  }
+
+  &__salary {
+    font-size: 1.4rem;
+    left: 0rem;
+    top: 7rem;
+    font-weight: 700;
+    position: absolute;
+  }
+
+  &__date {
+    font-size: 1.4rem;
+    left: -0.4rem;
+    top: 9.5rem;
+    position: absolute;
+  }
+
+  &__application {
+    float: right;
+    position: absolute;
+    right: 4rem;
+    bottom: 2rem;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    border: 1px solid $color-linkhover;
+    color: $color-navigation;
+    padding: 0.4rem 1rem;
+  }
+}

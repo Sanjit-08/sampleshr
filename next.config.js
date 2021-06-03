@@ -1,9 +1,7 @@
-module.exports = {
-  /* config options here */
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.node = {
-      fs: "empty",
-    };
+const withImages = require("next-images");
+module.exports = withImages({
+  fileExtensions: ["jpg", "jpeg", "png", "gif"],
+  webpack(config, options) {
     return config;
   },
-};
+});

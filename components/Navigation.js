@@ -9,7 +9,13 @@ const Navigation = (props) => {
   const { authuser } = useContext(AuthContext);
   const router = useRouter();
   const pathname = router.pathname;
-  const path = pathname === "/dashboard" ? false : true;
+  const path =
+    pathname === "/dashboard" ||
+    pathname === "/candidateprofile" ||
+    pathname === "/candidatestatus" ||
+    pathname === "/jobs"
+      ? false
+      : true;
   // const [show, setshow] = useState(false);
   // useEffect(() => {
   //   setTimeout(() => {
@@ -197,10 +203,20 @@ const Navigation = (props) => {
             <a className="navigation__listitem">Features</a>
           </Link>
         </li>
-        {!path ? (
+        {authuser ? (
           <li>
             <Link href="/createjob">
-              <a className="navigation__listitem">Create Job</a>
+              <a className="navigation__listitem">Create New Job</a>
+            </Link>
+          </li>
+        ) : (
+          ""
+        )}
+
+        {authuser ? (
+          <li>
+            <Link href="/dashboard">
+              <a className="navigation__listitem">Dashboard</a>
             </Link>
           </li>
         ) : (

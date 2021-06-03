@@ -1,8 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 
 .signup {
-  @include box;
-  top: 55%;
+  // @include box;
+  // top: 55%;
+  width: 40rem;
+  padding: 5rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(#000, 0.15);
+  margin: 15rem auto;
   height: 49rem;
   padding-top: 3rem;
   font-family: "Ubuntu", sans-serif;
@@ -12,12 +17,12 @@
   }
 
   @include respond(tab-port) {
-    top: 45% !important;
+    // top: 45% !important;
     height: 55rem;
   }
 
   @include respond(smallphone) {
-    top: 50% !important;
+    // top: 50% !important;
   }
 
   &__heading {

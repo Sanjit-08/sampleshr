@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
@@ -46,6 +48,178 @@ body {
 
 .u-margin-top-small {
   margin-top: 2rem !important; }
+
+.jobheadline {
+  font-size: 3rem;
+  margin-left: 8rem; }
+
+.jobcard {
+  text-align: center;
+  width: 60%;
+  height: 20rem;
+  margin-left: 40rem;
+  border-radius: 1rem;
+  border: 1px solid grey;
+  padding: 4rem 7rem;
+  padding-left: 2rem;
+  margin-bottom: 10rem;
+  position: relative; }
+  .jobcard__shape {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid grey;
+    float: left;
+    position: relative; }
+  .jobcard__image {
+    width: 170%;
+    background-size: cover;
+    transform: translate(-5%, 29%);
+    height: 100%;
+    background: url("../../../public/logo.png");
+    backface-visibility: hidden; }
+  .jobcard__information {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    margin-left: 5rem;
+    position: relative; }
+  .jobcard__profile {
+    font-size: 1.7rem;
+    letter-spacing: 0.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem; }
+  .jobcard__company {
+    font-size: 1.4rem;
+    margin-left: -1.8rem;
+    margin-bottom: 0.4rem; }
+  .jobcard__location {
+    font-size: 1.4rem;
+    left: 0rem;
+    top: 5rem;
+    position: absolute; }
+  .jobcard__salary {
+    font-size: 1.4rem;
+    left: 0rem;
+    top: 7rem;
+    font-weight: 700;
+    position: absolute; }
+  .jobcard__date {
+    font-size: 1.4rem;
+    left: -0.4rem;
+    top: 9.5rem;
+    position: absolute; }
+  .jobcard__application {
+    float: right;
+    position: absolute;
+    right: 4rem;
+    bottom: 2rem;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    border: 1px solid #4ad7d1;
+    color: #001730;
+    padding: 0.4rem 1rem; }
+
+.profile {
+  width: 70%;
+  height: 20rem;
+  padding: 2rem;
+  margin-left: 30rem;
+  border-radius: 1rem;
+  border: 1px solid gray;
+  outline: 0;
+  position: relative;
+  font-family: "Ubuntu", sans-serif; }
+  .profile__leftside {
+    float: left;
+    display: flex;
+    flex-direction: column; }
+  .profile__heading {
+    font-size: 2rem;
+    font-weight: 700; }
+  .profile__info {
+    font-size: 1.7rem;
+    font-weight: 500;
+    width: 50rem; }
+  .profile__editbutton {
+    color: #fff;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 0.7rem;
+    background-color: #0a66c2; }
+    .profile__editbutton:link, .profile__editbutton:visited {
+      color: #fff;
+      text-decoration: none; }
+    .profile__editbutton:hover {
+      font-weight: bolder; }
+  .profile__rightside {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5.2rem;
+    margin-right: 12rem; }
+  .profile__percent {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    font-weight: 700; }
+  .profile__progress {
+    width: 30rem;
+    height: 2.5rem;
+    border-radius: 5px;
+    outline: 0;
+    border: none;
+    position: relative;
+    border: 1px solid gray;
+    margin-bottom: 1rem; }
+    .profile__progress::after {
+      content: "";
+      display: inline-block;
+      position: absolute;
+      top: -0.2rem;
+      left: -0.2rem;
+      width: 30%;
+      height: 2.6rem;
+      border-radius: 5px;
+      outline: 0;
+      background-color: #4ad7d1; }
+  .profile__statusheading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #001730;
+    margin-bottom: 0.5rem; }
+  .profile__status {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #001730; }
+
+.search {
+  margin-top: 15rem;
+  margin-left: 30rem;
+  position: relative; }
+  .search__iconbox {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem; }
+  .search__icon {
+    color: #001730;
+    font-size: 2rem; }
+  .search__textbox {
+    width: 50rem;
+    font-family: "Ubuntu", sans-serif;
+    padding: 1.5rem 7rem;
+    border-radius: 1rem;
+    font-size: 2rem;
+    outline: 0;
+    border: 2px solid #001730; }
+    .search__textbox:focus {
+      border: 2px solid #4ad7d1; }
+    .search__textbox::placeholder {
+      position: absolute;
+      top: 1.7rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: gray; }
 
 .row {
   max-width: 114rem;
@@ -136,7 +310,7 @@ body {
   .navigation__list {
     float: left;
     position: absolute;
-    left: 40rem;
+    left: 45rem;
     display: flex;
     margin-top: 0.5rem;
     color: #fff;
@@ -213,7 +387,7 @@ body {
     padding: 1rem 2rem;
     display: inline-block;
     transition: all 0.2s;
-    font-size: 5rem; }
+    font-size: 3rem; }
   .navigation__link1:hover, .navigation__link1:active {
     font-weight: bolder;
     color: #4ad7d1; }
@@ -306,42 +480,24 @@ body {
       height: 70rem; } }
 
 .login {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 40rem;
   padding: 5rem;
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  top: 53%;
-  height: 48rem;
+  margin: 15rem auto;
+  height: 52rem;
+  margin-bottom: 0rem;
   font-family: "Ubuntu", sans-serif; }
-  .login::after {
-    content: "";
-    display: table;
-    clear: both; }
   @media only screen and (max-width: 75em) {
     .login {
-      top: 25%; } }
-  @media only screen and (max-width: 37.5em) {
-    .login {
-      top: 45%; } }
-  @media only screen and (max-width: 23em) {
-    .login {
-      top: 48%; } }
-  @media only screen and (max-width: 25em) {
-    .login {
-      top: 48%; } }
-  @media only screen and (max-width: 75em) {
-    .login {
-      height: 42rem; } }
+      height: 55rem; } }
   @media only screen and (max-width: 56.25em) {
     .login {
-      height: 48rem; } }
+      height: 58rem; } }
   @media only screen and (max-width: 37.5em) {
     .login {
-      height: 58rem; } }
+      margin: 18rem auto;
+      height: 64rem; } }
   .login__googlebutton {
     width: 20.4rem;
     height: 4.2rem;
@@ -353,7 +509,8 @@ body {
     margin-left: 15%; }
     @media only screen and (max-width: 37.5em) {
       .login__googlebutton {
-        height: 4rem; } }
+        height: 5rem;
+        width: 22rem; } }
   .login__ortext {
     font-size: 1.5rem;
     margin-bottom: 1.7rem;
@@ -380,13 +537,19 @@ body {
     @media only screen and (max-width: 37.5em) {
       .login__giconwrapper {
         margin-top: 0rem;
-        margin-left: 0rem; } }
+        margin-left: 0rem;
+        height: 5rem;
+        width: 5.2rem; } }
   .login__gicon {
     position: absolute;
     margin-top: 1.1rem;
     margin-left: 1rem;
     width: 1.8rem;
     height: 1.8rem; }
+    @media only screen and (max-width: 37.5em) {
+      .login__gicon {
+        margin-top: 1.5rem;
+        margin-left: 1.6rem; } }
   .login__btntext {
     float: right;
     margin: 1.1rem 1.1rem 0 0;
@@ -394,6 +557,10 @@ body {
     font-size: 1.6rem;
     letter-spacing: 0.2px;
     font-family: "Roboto"; }
+    @media only screen and (max-width: 37.5em) {
+      .login__btntext {
+        font-size: 1.8rem;
+        transform: translateX(3.5%); } }
     .login__btntext:hover {
       box-shadow: 0 0 6px #4285f4; }
     .login__btntext:active {
@@ -415,22 +582,8 @@ body {
     .login__resetpassword:hover {
       font-weight: 700; }
   .login__newuser {
-    position: relative;
-    bottom: -63rem;
     text-align: center;
     font-family: "Ubuntu", sans-serif; }
-    @media only screen and (max-width: 75em) {
-      .login__newuser {
-        position: absolute;
-        top: 55%;
-        left: 50%;
-        transform: translate(-50%, -15%); } }
-    @media only screen and (max-width: 56.25em) {
-      .login__newuser {
-        position: absolute;
-        top: 85%;
-        left: 50%;
-        transform: translate(-50%, -10%); } }
     @media only screen and (max-width: 23em) {
       .login__newuser {
         top: 92%; } }
@@ -475,47 +628,20 @@ body {
       font-weight: 700; }
 
 .signup {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 40rem;
   padding: 5rem;
   border-radius: 5px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  top: 55%;
+  margin: 15rem auto;
   height: 49rem;
   padding-top: 3rem;
   font-family: "Ubuntu", sans-serif; }
-  .signup::after {
-    content: "";
-    display: table;
-    clear: both; }
-  @media only screen and (max-width: 75em) {
-    .signup {
-      top: 25%; } }
-  @media only screen and (max-width: 37.5em) {
-    .signup {
-      top: 45%; } }
-  @media only screen and (max-width: 23em) {
-    .signup {
-      top: 48%; } }
-  @media only screen and (max-width: 25em) {
-    .signup {
-      top: 48%; } }
   @media only screen and (max-width: 75em) {
     .signup {
       height: 51rem; } }
   @media only screen and (max-width: 56.25em) {
     .signup {
-      top: 45% !important;
       height: 55rem; } }
-  @media only screen and (max-width: 23em) {
-    .signup {
-      top: 50% !important; } }
-  @media only screen and (max-width: 25em) {
-    .signup {
-      top: 50% !important; } }
   .signup__heading {
     font-size: 2.5rem;
     margin-bottom: 3rem; }

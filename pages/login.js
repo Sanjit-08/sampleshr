@@ -392,12 +392,20 @@ const Login = (props) => {
               </Button>
             </div>
           </form>
+          <div className="login__newuser u-margin-top-small" id="newuser">
+            <div className="login__newuser__text">
+              New to ShramIn?
+              <Link href="/signup">
+                <a className="login__newuser__link"> Sign Up</a>
+              </Link>
+            </div>
+          </div>
         </div>
       ) : (
         ""
       )}
 
-      {!authuser ? (
+      {/* {!authuser ? (
         <div className="login__newuser u-margin-top-small" id="newuser">
           <div className="login__newuser__text">
             New to ShramIn?
@@ -408,7 +416,7 @@ const Login = (props) => {
         </div>
       ) : (
         ""
-      )}
+      )} */}
 
       {show ? (
         <CircularProgress

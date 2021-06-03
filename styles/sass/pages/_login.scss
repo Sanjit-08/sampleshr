@@ -2,21 +2,28 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:500");
 
 .login {
-  @include box;
-  top: 53%;
-  height: 48rem;
+  // @include box;
+  // top: 53%;
+  width: 40rem;
+  padding: 5rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(#000, 0.15);
+  margin: 15rem auto;
+  height: 52rem;
+  margin-bottom: 0rem;
   font-family: "Ubuntu", sans-serif;
 
   @include respond(tab-land) {
-    height: 42rem;
+    height: 55rem;
   }
 
   @include respond(tab-port) {
-    height: 48rem;
+    height: 58rem;
   }
 
   @include respond(phone) {
-    height: 58rem;
+    margin: 18rem auto;
+    height: 64rem;
   }
 
   &__googlebutton {
@@ -30,7 +37,8 @@
     margin-left: 15%;
 
     @include respond(phone) {
-      height: 4rem;
+      height: 5rem;
+      width: 22rem;
     }
   }
 
@@ -70,6 +78,8 @@
     @include respond(phone) {
       margin-top: 0rem;
       margin-left: 0rem;
+      height: 5rem;
+      width: 5.2rem;
     }
   }
 
@@ -79,6 +89,11 @@
     margin-left: 1rem;
     width: 1.8rem;
     height: 1.8rem;
+
+    @include respond(phone) {
+      margin-top: 1.5rem;
+      margin-left: 1.6rem;
+    }
   }
 
   &__btntext {
@@ -89,6 +104,11 @@
     letter-spacing: 0.2px;
     // font-family: "Roboto";
     font-family: "Roboto";
+
+    @include respond(phone) {
+      font-size: 1.8rem;
+      transform: translateX(3.5%);
+    }
 
     &:hover {
       box-shadow: 0 0 6px $google-blue;
@@ -126,23 +146,15 @@
   }
 
   &__newuser {
-    position: relative;
-    bottom: -63rem;
+    // position: relative;
+    // bottom: -63rem;
     text-align: center;
     font-family: "Ubuntu", sans-serif;
 
     @include respond(tab-land) {
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -15%);
     }
 
     @include respond(tab-port) {
-      position: absolute;
-      top: 85%;
-      left: 50%;
-      transform: translate(-50%, -10%);
     }
 
     @include respond(smallphone) {

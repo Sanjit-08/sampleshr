@@ -196,7 +196,7 @@ const Signup = () => {
                   .createUserWithEmailAndPassword(email, pass)
                   .then(function () {
                     setOpen(true);
-                    // window.location.href = "/";
+                    window.location.href = "/dashboard";
                   })
                   .catch(function (error) {
                     const message = error.message;
