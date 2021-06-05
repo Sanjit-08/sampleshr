@@ -26,6 +26,7 @@ const Navigation = (props) => {
   const logout = async (e) => {
     e.preventDefault();
     await firebase.auth().signOut();
+    localStorage.removeItem("userId");
     if (!path) {
       window.location.href = "/login";
     }
@@ -38,9 +39,10 @@ const Navigation = (props) => {
   return (
     <section className="navigation">
       <div className="navigation__logo">
-        <div className="navigation__logo--text">
+        {/* <div className="navigation__logo--text">
           Shram<span className="navigation__logo--green">In</span>
-        </div>
+        </div> */}
+        <div className="navigation__image">&nbsp;</div>
       </div>
 
       <input
@@ -49,7 +51,7 @@ const Navigation = (props) => {
         id="navi-toggle"
       />
 
-      <label for="navi-toggle" className="navigation__button1">
+      <label htmlFor="navi-toggle" className="navigation__button1">
         <span className="navigation__icon">&nbsp;</span>
       </label>
 

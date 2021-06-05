@@ -13,11 +13,9 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import loadable from "@loadable/component";
-import MediaQuery from "react-responsive";
 import { isMobile } from "react-device-detect";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
-import { useLocation } from "react-router-dom";
 import { useRouter } from "next/router";
 import API from "../API";
 function Alert(props) {
@@ -38,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
   // const location = useLocation();
   // console.log(location);
-  const { token } = useContext(AuthContext);
   const router = useRouter();
   const path = router.pathname;
   const { authuser } = useContext(AuthContext);
@@ -134,23 +131,88 @@ const Login = (props) => {
     }
   });
 
+  const Login = async () => {
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, pass)
+      .then(function () {
+        setOpen(true);
+        firebase
+          .auth()
+          .currentUser.getIdToken()
+          .then((token) => {
+            console.log("Bearer", token);
+            API({
+              method: "post",
+              url: "/signup",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+                "Cache-Control": "no-cache",
+                Connection: "keep-alive",
+                Accept: "application/json",
+              },
+            })
+              .then((result) => {
+                console.log(result);
+                let userId = result.data.userId;
+                console.log(userId);
+                localStorage.setItem("userId", userId);
+                window.location.href = "/dashboard";
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+      })
+      .catch(function (error) {
+        const message = error.message;
+        setError(message);
+        handleErrorClick();
+      });
+  };
+
   var provider = new firebase.auth.GoogleAuthProvider();
   const googleSignIn = () => {
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        var credential = result.credential;
-
-        var token = credential.accessToken;
         setOpen(true);
-        window.location.href = "/dashboard";
-        var user = result.user;
-
-        setEmailId(user.email);
-      })
-      .catch((error) => {
-        var errorMessage = error.message;
+        var credential = result.credential;
+        var token = credential.accessToken;
+        firebase
+          .auth()
+          .currentUser.getIdToken()
+          .then((token) => {
+            console.log(token);
+            API({
+              method: "post",
+              url: "/signup",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+                "Cache-Control": "no-cache",
+                Connection: "keep-alive",
+                Accept: "application/json",
+              },
+            })
+              .then((result) => {
+                console.log(result);
+                let userId = result.data.userId;
+                console.log(userId);
+                localStorage.setItem("userId", userId);
+                window.location.href = "/dashboard";
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          })
+          .catch(function (error) {
+            const message = error.message;
+            setError(message);
+            handleErrorClick();
+          });
       });
   };
 
@@ -178,17 +240,39 @@ const Login = (props) => {
       .getRedirectResult()
       .then(function (result) {
         if (result.credential) {
-          var token = result.credential.accessToken;
-          console.log(token);
           setOpen(true);
-          window.location.href = "/dashboard";
-          setToken(token);
+          firebase
+            .auth()
+            .currentUser.getIdToken()
+            .then((token) => {
+              console.log(token);
+              API({
+                method: "post",
+                url: "/signup",
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "multipart/form-data",
+                  "Cache-Control": "no-cache",
+                  Connection: "keep-alive",
+                  Accept: "application/json",
+                },
+              })
+                .then((result) => {
+                  console.log(result);
+                  let userId = result.data.userId;
+                  console.log(userId);
+                  localStorage.setItem("userId", userId);
+                  window.location.href = "/dashboard";
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            });
           setShow(false);
         } else {
           setShow(false);
           console.log("No Token");
         }
-        var user = result.user;
         document.getElementById("log").style.display = "block";
         document.getElementById("newuser").style.display = "block";
         document.getElementById("log").style.opacity = 1;
@@ -340,7 +424,10 @@ const Login = (props) => {
                 onChange={(e) => setPass(e.target.value)}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment
+                      position="end"
+                      style={{ marginRight: "-13px" }}
+                    >
                       <IconButton
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
@@ -370,38 +457,7 @@ const Login = (props) => {
                 variant="contained"
                 color="primary"
                 style={{ padding: "3px 15px", fontSize: "15px" }}
-                onClick={async () => {
-                  await firebase
-                    .auth()
-                    .signInWithEmailAndPassword(email, pass)
-                    .then(function () {
-                      setOpen(true);
-                      let storedToken = token;
-                      API({
-                        method: "post",
-                        url: "/signup",
-                        headers: {
-                          Authorization: `Bearer ${storedToken}`,
-                          "Content-Type": "multipart/form-data",
-                          "Cache-Control": "no-cache",
-                          Connection: "keep-alive",
-                          Accept: "application/json",
-                        },
-                      })
-                        .then((result) => {
-                          console.log(result);
-                        })
-                        .catch((err) => {
-                          console.log(err);
-                        });
-                      // window.location.href = "/dashboard";
-                    })
-                    .catch(function (error) {
-                      const message = error.message;
-                      setError(message);
-                      handleErrorClick();
-                    });
-                }}
+                onClick={() => Login()}
               >
                 LOGIN
               </Button>

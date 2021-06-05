@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Head from "next/head";
 import { makeStyles } from "@material-ui/core/styles";
-import firebaseClient from "../firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { Button } from "@material-ui/core";
@@ -13,7 +12,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import loadable from "@loadable/component";
-import { isMobile } from "react-device-detect";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
 import API from "../API";
@@ -44,9 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signup = () => {
-  const { user } = useContext(AuthContext);
   const { authuser } = useContext(AuthContext);
-  const { token } = useContext(AuthContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -86,6 +82,47 @@ const Signup = () => {
   const handleForm = (e) => {
     e.preventDefault();
     console.log(error);
+  };
+
+  const SignUp = async () => {
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, pass)
+      .then(function () {
+        setOpen(true);
+        firebase
+          .auth()
+          .currentUser.getIdToken()
+          .then((token) => {
+            console.log("Bearer", token);
+            API({
+              method: "post",
+              url: "/signup",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+                "Cache-Control": "no-cache",
+                Connection: "keep-alive",
+                Accept: "application/json",
+              },
+            })
+              .then((result) => {
+                console.log(result);
+                let userId = result.data.userId;
+                console.log(userId);
+                localStorage.setItem("userId", userId);
+                window.location.href = "/dashboard";
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          });
+      })
+      .catch(function (error) {
+        const message = error.message;
+        setError(message);
+        handleErrorClick();
+      });
   };
 
   return (
@@ -169,7 +206,10 @@ const Signup = () => {
                 onChange={(e) => setPass(e.target.value)}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">
+                    <InputAdornment
+                      position="end"
+                      style={{ marginRight: "-13px" }}
+                    >
                       <IconButton
                         aria-label="toggle password visibility"
                         onClick={handleClickShowPassword}
@@ -191,33 +231,9 @@ const Signup = () => {
             <Button
               variant="contained"
               color="primary"
+              type="submit"
               style={{ padding: "3px 15px", fontSize: "15px" }}
-              onClick={async () => {
-                await firebase
-                  .auth()
-                  .createUserWithEmailAndPassword(email, pass)
-                  .then(function () {
-                    setOpen(true);
-                    let storedToken = token;
-                    let result = API({
-                      method: "post",
-                      url: "/signup",
-                      headers: { Authorization: `Bearer ${storedToken}` },
-                    })
-                      .then((result) => {
-                        console.log(result);
-                      })
-                      .catch((err) => {
-                        console.log(err);
-                      });
-                    window.location.href = "/dashboard";
-                  })
-                  .catch(function (error) {
-                    const message = error.message;
-                    setError(message);
-                    handleErrorClick();
-                  });
-              }}
+              onClick={() => SignUp()}
             >
               SIGNUP
             </Button>

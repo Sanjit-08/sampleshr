@@ -54,6 +54,9 @@ body {
 .jobheadline {
   font-size: 3rem;
   margin-left: 8rem; }
+  @media only screen and (max-width: 37.5em) {
+    .jobheadline {
+      margin-left: 1rem; } }
 
 .jobcard {
   text-align: center;
@@ -66,6 +69,11 @@ body {
   padding-left: 2rem;
   margin-bottom: 10rem;
   position: relative; }
+  @media only screen and (max-width: 37.5em) {
+    .jobcard {
+      margin-left: 1.4rem;
+      width: 95%;
+      margin-bottom: 5rem; } }
   .jobcard__shape {
     width: 10rem;
     height: 10rem;
@@ -74,6 +82,9 @@ body {
     border: 1px solid grey;
     float: left;
     position: relative; }
+    @media only screen and (max-width: 37.5em) {
+      .jobcard__shape {
+        display: none; } }
   .jobcard__image {
     width: 170%;
     background-size: cover;
@@ -87,6 +98,10 @@ body {
     float: left;
     margin-left: 5rem;
     position: relative; }
+    @media only screen and (max-width: 37.5em) {
+      .jobcard__information {
+        margin-left: 2rem;
+        margin-top: -1rem; } }
   .jobcard__profile {
     font-size: 1.7rem;
     letter-spacing: 0.2rem;
@@ -122,6 +137,9 @@ body {
     border: 1px solid #4ad7d1;
     color: #001730;
     padding: 0.4rem 1rem; }
+    @media only screen and (max-width: 37.5em) {
+      .jobcard__application {
+        right: 1rem; } }
 
 .profile {
   width: 70%;
@@ -136,8 +154,9 @@ body {
   @media only screen and (max-width: 37.5em) {
     .profile {
       margin-left: 2rem;
-      width: 85%;
-      height: 26rem; } }
+      width: 90%;
+      height: 26rem;
+      padding-right: 1rem; } }
   .profile__leftside {
     float: left;
     display: flex;
@@ -320,8 +339,8 @@ body {
   .navigation__logo {
     float: left;
     position: absolute;
-    left: 6rem;
-    top: 2.5rem; }
+    left: 4rem;
+    top: 2.9rem; }
     .navigation__logo--text {
       font-size: 4rem;
       color: #fff;
@@ -336,6 +355,12 @@ body {
       .navigation__logo {
         left: 2rem;
         font-size: 3rem; } }
+  .navigation__image {
+    background: url("../../../public/shraminlogo.png");
+    width: 19rem;
+    height: 6rem;
+    background-repeat: no-repeat;
+    filter: saturate(3); }
   .navigation__list {
     float: left;
     position: absolute;
@@ -632,7 +657,7 @@ body {
         margin-top: 0rem;
         margin-left: 0rem;
         height: 5rem;
-        width: 5.2rem; } }
+        width: 5rem; } }
   .login__gicon {
     position: absolute;
     margin-top: 1.1rem;

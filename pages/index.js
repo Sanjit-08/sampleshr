@@ -2,7 +2,6 @@ import React, { lazy } from "react";
 import loadable from "@loadable/component";
 import Head from "next/head";
 import Image from "next/image";
-// import Navigation from "../components/Navigation";
 const Navigation = loadable(() => import("../components/Navigation"));
 
 export default function Home() {
