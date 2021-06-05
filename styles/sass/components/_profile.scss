@@ -11,6 +11,12 @@
   position: relative;
   font-family: "Ubuntu", sans-serif;
 
+  @include respond(phone) {
+    margin-left: 2rem;
+    width: 85%;
+    height: 26rem;
+  }
+
   &__leftside {
     float: left;
     display: flex;
@@ -27,6 +33,10 @@
     font-weight: 500;
 
     width: 50rem;
+
+    @include respond(phone) {
+      width: 23rem;
+    }
   }
 
   &__editbutton {
@@ -53,6 +63,11 @@
     flex-direction: column;
     margin-top: 5.2rem;
     margin-right: 12rem;
+
+    @include respond(phone) {
+      margin-top: 10rem;
+      margin-right: 0rem;
+    }
   }
 
   &__percent {
@@ -73,6 +88,10 @@
     // overflow: hidden;
     margin-bottom: 1rem;
 
+    @include respond(phone) {
+      width: 13rem;
+    }
+
     &::after {
       content: "";
       display: inline-block;
@@ -84,6 +103,13 @@
       border-radius: 5px;
       outline: 0;
       background-color: $color-linkhover;
+
+      @include respond(phone) {
+        top: -0.15rem;
+        height: 2.4rem;
+        left: -0.13rem;
+        border-bottom-left-radius: 0.6rem;
+      }
     }
   }
 

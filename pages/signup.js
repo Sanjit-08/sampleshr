@@ -16,6 +16,7 @@ import loadable from "@loadable/component";
 import { isMobile } from "react-device-detect";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
+import API from "../API";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
 const Signup = () => {
   const { user } = useContext(AuthContext);
   const { authuser } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
@@ -196,6 +198,18 @@ const Signup = () => {
                   .createUserWithEmailAndPassword(email, pass)
                   .then(function () {
                     setOpen(true);
+                    let storedToken = token;
+                    let result = API({
+                      method: "post",
+                      url: "/signup",
+                      headers: { Authorization: `Bearer ${storedToken}` },
+                    })
+                      .then((result) => {
+                        console.log(result);
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                      });
                     window.location.href = "/dashboard";
                   })
                   .catch(function (error) {

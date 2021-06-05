@@ -19,6 +19,7 @@ const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
 import { useLocation } from "react-router-dom";
 import { useRouter } from "next/router";
+import API from "../API";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
   // const location = useLocation();
   // console.log(location);
+  const { token } = useContext(AuthContext);
   const router = useRouter();
   const path = router.pathname;
   const { authuser } = useContext(AuthContext);
@@ -165,12 +167,7 @@ const Login = (props) => {
       });
   };
 
-  console.log(click);
   function initApp() {
-    console.log("Running");
-    // if (authuser) {
-    //   setShow(false);
-    // }
     setShow(true);
     document.getElementById("log").style.display = "none";
     document.getElementById("newuser").style.display = "none";
@@ -379,7 +376,25 @@ const Login = (props) => {
                     .signInWithEmailAndPassword(email, pass)
                     .then(function () {
                       setOpen(true);
-                      window.location.href = "/dashboard";
+                      let storedToken = token;
+                      API({
+                        method: "post",
+                        url: "/signup",
+                        headers: {
+                          Authorization: `Bearer ${storedToken}`,
+                          "Content-Type": "multipart/form-data",
+                          "Cache-Control": "no-cache",
+                          Connection: "keep-alive",
+                          Accept: "application/json",
+                        },
+                      })
+                        .then((result) => {
+                          console.log(result);
+                        })
+                        .catch((err) => {
+                          console.log(err);
+                        });
+                      // window.location.href = "/dashboard";
                     })
                     .catch(function (error) {
                       const message = error.message;

@@ -13,7 +13,8 @@ const Navigation = (props) => {
     pathname === "/dashboard" ||
     pathname === "/candidateprofile" ||
     pathname === "/candidatestatus" ||
-    pathname === "/jobs"
+    pathname === "/jobs" ||
+    pathname === "/createjob"
       ? false
       : true;
   // const [show, setshow] = useState(false);

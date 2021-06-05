@@ -2,6 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto:500");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:500");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
@@ -131,6 +133,11 @@ body {
   outline: 0;
   position: relative;
   font-family: "Ubuntu", sans-serif; }
+  @media only screen and (max-width: 37.5em) {
+    .profile {
+      margin-left: 2rem;
+      width: 85%;
+      height: 26rem; } }
   .profile__leftside {
     float: left;
     display: flex;
@@ -142,6 +149,9 @@ body {
     font-size: 1.7rem;
     font-weight: 500;
     width: 50rem; }
+    @media only screen and (max-width: 37.5em) {
+      .profile__info {
+        width: 23rem; } }
   .profile__editbutton {
     color: #fff;
     padding: 1rem 2rem;
@@ -159,6 +169,10 @@ body {
     flex-direction: column;
     margin-top: 5.2rem;
     margin-right: 12rem; }
+    @media only screen and (max-width: 37.5em) {
+      .profile__rightside {
+        margin-top: 10rem;
+        margin-right: 0rem; } }
   .profile__percent {
     margin-bottom: 1rem;
     font-size: 1.8rem;
@@ -172,6 +186,9 @@ body {
     position: relative;
     border: 1px solid gray;
     margin-bottom: 1rem; }
+    @media only screen and (max-width: 37.5em) {
+      .profile__progress {
+        width: 13rem; } }
     .profile__progress::after {
       content: "";
       display: inline-block;
@@ -183,6 +200,12 @@ body {
       border-radius: 5px;
       outline: 0;
       background-color: #4ad7d1; }
+      @media only screen and (max-width: 37.5em) {
+        .profile__progress::after {
+          top: -0.15rem;
+          height: 2.4rem;
+          left: -0.13rem;
+          border-bottom-left-radius: 0.6rem; } }
   .profile__statusheading {
     font-size: 1.5rem;
     font-weight: 600;
@@ -197,6 +220,9 @@ body {
   margin-top: 15rem;
   margin-left: 30rem;
   position: relative; }
+  @media only screen and (max-width: 37.5em) {
+    .search {
+      margin-left: 2rem; } }
   .search__iconbox {
     position: absolute;
     top: 1.5rem;
@@ -212,6 +238,9 @@ body {
     font-size: 2rem;
     outline: 0;
     border: 2px solid #001730; }
+    @media only screen and (max-width: 37.5em) {
+      .search__textbox {
+        width: 40rem; } }
     .search__textbox:focus {
       border: 2px solid #4ad7d1; }
     .search__textbox::placeholder {
@@ -457,6 +486,70 @@ body {
 
 #navi1-toggle {
   display: inline-block; }
+
+.createjob {
+  margin-top: 18rem;
+  margin-bottom: 20rem;
+  width: 80%;
+  padding: 3rem 10rem;
+  padding-bottom: 1rem;
+  border: 1px solid #787878;
+  border-radius: 10px;
+  margin: 18rem auto;
+  font-family: "Roboto", sans-serif; }
+  .createjob__heading {
+    margin-top: 0rem;
+    font-size: 3rem;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700; }
+  .createjob__details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0rem; }
+  .createjob__field {
+    display: flex;
+    flex-direction: column; }
+    .createjob__field:not(:last-child) {
+      margin-bottom: 5rem; }
+  .createjob__label {
+    font-size: 2rem;
+    margin-bottom: 2rem; }
+  .createjob__company {
+    font-size: 2.5rem;
+    width: 40%; }
+  .createjob__select {
+    width: 35%;
+    height: 40%;
+    padding: 1rem;
+    outline: 0;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    cursor: pointer; }
+  .createjob__select * {
+    font-size: 1.8rem; }
+  .createjob__option {
+    padding: 1.5rem; }
+  .createjob__textbox {
+    width: 40%;
+    height: 14rem;
+    resize: none;
+    padding: 2rem;
+    outline: 0;
+    font-size: 1.5rem; }
+  .createjob__submit {
+    background-color: #1669f2;
+    color: #fff;
+    width: 20rem;
+    padding: 1.5rem 0.5rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    margin: 5rem auto;
+    outline: 0;
+    border: none; }
+    .createjob__submit:hover {
+      background-color: #0a66c2;
+      font-weight: bolder; }
 
 .hero {
   padding-top: 0;
