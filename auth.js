@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext, createContext } from "react";
 import firebaseClient from "./firebaseClient";
 import firebase from "firebase/app";
 import "firebase/auth";
+import nookies from "nookies";
 
 export const AuthContext = createContext();
 
@@ -17,6 +18,9 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((firebaseUser) => {
       setAuthUser(firebaseUser);
+      if (!firebaseUser) {
+        nookies.set(undefined, "userId", "", { path: "/" });
+      }
     });
   }, []);
 
@@ -25,15 +29,16 @@ const AuthContextProvider = ({ children }) => {
       if (!user) {
         setAuthToken(false);
         setUser(null);
-        localStorage.setItem("token", undefined);
-        localStorage.setItem("authtoken", false);
+        nookies.set(undefined, "userId", "", { path: "/" });
+        // localStorage.setItem("token", undefined);
+        // localStorage.setItem("authtoken", false);
         return;
       }
       setAuthToken(true);
       const token = await user.getIdToken();
       setUser(user);
-      localStorage.setItem("token", token);
-      localStorage.setItem("authtoken", true);
+      // localStorage.setItem("token", token);
+      // localStorage.setItem("authtoken", true);
     });
   }, []);
 

@@ -34,6 +34,7 @@
 
     @include respond(tab-land) {
       left: 4rem;
+      top: 2.5rem;
     }
 
     @include respond(phone) {
@@ -49,6 +50,11 @@
     background-repeat: no-repeat;
     filter: saturate(3);
     // height: 6rem;
+
+    @include respond(phone) {
+      width: 20rem;
+      background-size: contain;
+    }
   }
 
   &__list {

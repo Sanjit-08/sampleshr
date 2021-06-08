@@ -17,6 +17,7 @@ import { isMobile } from "react-device-detect";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
 import { useRouter } from "next/router";
+import nookies from "nookies";
 import API from "../API";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -36,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
   // const location = useLocation();
   // console.log(location);
+  const { cookies } = props;
+  const { userId } = cookies;
+  const { hide } = cookies;
+  const [change, setChange] = useState(false);
   const router = useRouter();
   const path = router.pathname;
   const { authuser } = useContext(AuthContext);
@@ -158,6 +163,12 @@ const Login = (props) => {
                 let userId = result.data.userId;
                 console.log(userId);
                 localStorage.setItem("userId", userId);
+                nookies.set(undefined, "userId", userId, {
+                  path: "/",
+                  maxAge: 30 * 24 * 60 * 60,
+                });
+                setChange(!change);
+                window.location.href = "/dashboard";
                 window.location.href = "/dashboard";
               })
               .catch((err) => {
@@ -179,8 +190,8 @@ const Login = (props) => {
       .signInWithPopup(provider)
       .then((result) => {
         setOpen(true);
-        var credential = result.credential;
-        var token = credential.accessToken;
+        // var credential = result.credential;
+        // var token = credential.accessToken;
         firebase
           .auth()
           .currentUser.getIdToken()
@@ -202,6 +213,12 @@ const Login = (props) => {
                 let userId = result.data.userId;
                 console.log(userId);
                 localStorage.setItem("userId", userId);
+
+                nookies.set(undefined, "userId", userId, {
+                  path: "/",
+                  maxAge: 30 * 24 * 60 * 60,
+                });
+                setChange(!change);
                 window.location.href = "/dashboard";
               })
               .catch((err) => {
@@ -231,10 +248,10 @@ const Login = (props) => {
 
   function initApp() {
     setShow(true);
-    document.getElementById("log").style.display = "none";
-    document.getElementById("newuser").style.display = "none";
-    document.getElementById("log").style.opacity = 0;
-    document.getElementById("newuser").style.opacity = 0;
+    // document.getElementById("log").style.display = "none";
+    // document.getElementById("newuser").style.display = "none";
+    // document.getElementById("log").style.opacity = 0;
+    // document.getElementById("newuser").style.opacity = 0;
     firebase
       .auth()
       .getRedirectResult()
@@ -262,6 +279,12 @@ const Login = (props) => {
                   let userId = result.data.userId;
                   console.log(userId);
                   localStorage.setItem("userId", userId);
+                  nookies.set(undefined, "userId", userId, {
+                    path: "/",
+                    maxAge: 30 * 24 * 60 * 60,
+                  });
+                  setChange(!change);
+                  window.location.href = "/dashboard";
                   window.location.href = "/dashboard";
                 })
                 .catch((err) => {
@@ -271,12 +294,11 @@ const Login = (props) => {
           setShow(false);
         } else {
           setShow(false);
-          console.log("No Token");
         }
-        document.getElementById("log").style.display = "block";
-        document.getElementById("newuser").style.display = "block";
-        document.getElementById("log").style.opacity = 1;
-        document.getElementById("newuser").style.opacity = 1;
+        // document.getElementById("log").style.display = "block";
+        // document.getElementById("newuser").style.display = "block";
+        // document.getElementById("log").style.opacity = 1;
+        // document.getElementById("newuser").style.opacity = 1;
       })
       .catch(function (error) {
         var errorCode = error.code;
@@ -377,7 +399,7 @@ const Login = (props) => {
           <span style={{ fontSize: "15px" }}>{error}</span>
         </Alert>
       </Snackbar>
-      {!authuser ? (
+      {!authuser && !hide ? (
         <div className="login" id="log">
           <div className="login__gbox">
             <div
@@ -504,7 +526,7 @@ const Login = (props) => {
         ""
       )}
 
-      {authuser ? (
+      {authuser || hide ? (
         <div className="activeuser">
           <div className="activeuser__logo">
             Welcome to Shram<span className="activeuser__logo--green">In</span>
@@ -517,4 +539,24 @@ const Login = (props) => {
   );
 };
 
+export async function getServerSideProps(ctx) {
+  const cookies = ctx.req.cookies;
+
+  let hide = true;
+
+  if (cookies.userId) {
+    hide = true;
+  }
+
+  if (!cookies.userId) {
+    hide = false;
+  }
+
+  return {
+    props: {
+      cookies: cookies,
+      hide: hide,
+    },
+  };
+}
 export default Login;

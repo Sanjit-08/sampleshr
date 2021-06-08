@@ -350,7 +350,8 @@ body {
       font-weight: 700; }
     @media only screen and (max-width: 75em) {
       .navigation__logo {
-        left: 4rem; } }
+        left: 4rem;
+        top: 2.5rem; } }
     @media only screen and (max-width: 37.5em) {
       .navigation__logo {
         left: 2rem;
@@ -361,6 +362,10 @@ body {
     height: 6rem;
     background-repeat: no-repeat;
     filter: saturate(3); }
+    @media only screen and (max-width: 37.5em) {
+      .navigation__image {
+        width: 20rem;
+        background-size: contain; } }
   .navigation__list {
     float: left;
     position: absolute;
