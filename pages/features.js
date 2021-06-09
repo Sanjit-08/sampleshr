@@ -3,7 +3,8 @@ import Head from "next/head";
 import loadable from "@loadable/component";
 const Navigation = loadable(() => import("../components/Navigation"));
 
-const Features = () => {
+const Features = (props) => {
+  const { show } = props;
   return (
     <>
       <Head>
@@ -26,7 +27,7 @@ const Features = () => {
           content="https://shramin.vercel.app/features"
         ></meta>
       </Head>
-      <Navigation />
+      <Navigation show={show} />
       <h2
         style={{
           marginTop: "200px",
@@ -38,5 +39,26 @@ const Features = () => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const cookies = ctx.req.cookies;
+
+  const userId = cookies.userId;
+  let show = true;
+
+  if (userId) {
+    show = true;
+  }
+
+  if (!userId) {
+    show = false;
+  }
+
+  return {
+    props: {
+      show: show,
+    },
+  };
+}
 
 export default Features;

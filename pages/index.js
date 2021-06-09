@@ -4,7 +4,8 @@ import Head from "next/head";
 import Image from "next/image";
 const Navigation = loadable(() => import("../components/Navigation"));
 
-export default function Home() {
+export default function Home(props) {
+  const { show } = props;
   return (
     <>
       <Head>
@@ -20,4 +21,25 @@ export default function Home() {
       </section>
     </>
   );
+}
+
+export async function getServerSideProps(ctx) {
+  const cookies = ctx.req.cookies;
+
+  const userId = cookies.userId;
+  let show = true;
+
+  if (userId) {
+    show = true;
+  }
+
+  if (!userId) {
+    show = false;
+  }
+
+  return {
+    props: {
+      show: show,
+    },
+  };
 }

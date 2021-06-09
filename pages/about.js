@@ -3,7 +3,8 @@ import Head from "next/head";
 import loadable from "@loadable/component";
 const Navigation = loadable(() => import("../components/Navigation"));
 
-const About = () => {
+const About = (props) => {
+  const { show } = props;
   return (
     <>
       <Head>
@@ -51,7 +52,7 @@ const About = () => {
         />
         <meta name="twitter:app:id:iphone" content=""></meta>
       </Head>
-      <Navigation />
+      <Navigation show={show} />
       <h2
         style={{
           marginTop: "200px",
@@ -63,5 +64,26 @@ const About = () => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const cookies = ctx.req.cookies;
+
+  const userId = cookies.userId;
+  let show = true;
+
+  if (userId) {
+    show = true;
+  }
+
+  if (!userId) {
+    show = false;
+  }
+
+  return {
+    props: {
+      show: show,
+    },
+  };
+}
 
 export default About;

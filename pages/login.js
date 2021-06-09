@@ -19,6 +19,7 @@ import { AuthContext } from "../auth";
 import { useRouter } from "next/router";
 import nookies from "nookies";
 import API from "../API";
+import { allApi } from "../config";
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -144,12 +145,16 @@ const Login = (props) => {
         setOpen(true);
         firebase
           .auth()
-          .currentUser.getIdToken()
+          .currentUser.getToken(/* forceRefresh */ true)
           .then((token) => {
+            nookies.set(undefined, "token", token, {
+              path: "/",
+              maxAge: 30 * 24 * 60 * 60,
+            });
             console.log("Bearer", token);
             API({
               method: "post",
-              url: "/signup",
+              url: allApi.signup,
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
@@ -168,7 +173,6 @@ const Login = (props) => {
                   maxAge: 30 * 24 * 60 * 60,
                 });
                 setChange(!change);
-                window.location.href = "/dashboard";
                 window.location.href = "/dashboard";
               })
               .catch((err) => {
@@ -194,12 +198,16 @@ const Login = (props) => {
         // var token = credential.accessToken;
         firebase
           .auth()
-          .currentUser.getIdToken()
+          .currentUser.getIdToken(/* forceRefresh */ true)
           .then((token) => {
             console.log(token);
+            nookies.set(undefined, "token", token, {
+              path: "/",
+              maxAge: 30 * 24 * 60 * 60,
+            });
             API({
               method: "post",
-              url: "/signup",
+              url: allApi.signup,
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
@@ -219,7 +227,7 @@ const Login = (props) => {
                   maxAge: 30 * 24 * 60 * 60,
                 });
                 setChange(!change);
-                window.location.href = "/dashboard";
+                // window.location.href = "/dashboard";
               })
               .catch((err) => {
                 console.log(err);
@@ -248,10 +256,10 @@ const Login = (props) => {
 
   function initApp() {
     setShow(true);
-    // document.getElementById("log").style.display = "none";
-    // document.getElementById("newuser").style.display = "none";
-    // document.getElementById("log").style.opacity = 0;
-    // document.getElementById("newuser").style.opacity = 0;
+    document.getElementById("log").style.display = "none";
+    document.getElementById("newuser").style.display = "none";
+    document.getElementById("log").style.opacity = 0;
+    document.getElementById("newuser").style.opacity = 0;
     firebase
       .auth()
       .getRedirectResult()
@@ -260,12 +268,16 @@ const Login = (props) => {
           setOpen(true);
           firebase
             .auth()
-            .currentUser.getIdToken()
+            .currentUser.getIdToken(/* forceRefresh */ true)
             .then((token) => {
+              nookies.set(undefined, "token", token, {
+                path: "/",
+                maxAge: 30 * 24 * 60 * 60,
+              });
               console.log(token);
               API({
                 method: "post",
-                url: "/signup",
+                url: allApi.signup,
                 headers: {
                   Authorization: `Bearer ${token}`,
                   "Content-Type": "multipart/form-data",
@@ -285,7 +297,6 @@ const Login = (props) => {
                   });
                   setChange(!change);
                   window.location.href = "/dashboard";
-                  window.location.href = "/dashboard";
                 })
                 .catch((err) => {
                   console.log(err);
@@ -295,10 +306,14 @@ const Login = (props) => {
         } else {
           setShow(false);
         }
-        // document.getElementById("log").style.display = "block";
-        // document.getElementById("newuser").style.display = "block";
-        // document.getElementById("log").style.opacity = 1;
-        // document.getElementById("newuser").style.opacity = 1;
+        setShow(true);
+        setTimeout(() => {
+          document.getElementById("log").style.display = "block";
+          document.getElementById("newuser").style.display = "block";
+          document.getElementById("log").style.opacity = 1;
+          document.getElementById("newuser").style.opacity = 1;
+          setShow(false);
+        }, 2000);
       })
       .catch(function (error) {
         var errorCode = error.code;

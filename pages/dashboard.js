@@ -20,18 +20,24 @@ const Dashboard = (props) => {
   return (
     <>
       <Navigation show={show} />
-      <div style={{ overflowY: "auto", overflowX: "hidden" }}>
-        <SearchFilter />
-        <CompanyProfile />
-      </div>
-      <div className="jobheadline u-center-text u-margin-top-medium u-margin-bottom-small">
-        Jobs Created
-      </div>
-      <JobCard info={info} />
-      <JobCard info={info} />
-      <JobCard info={info} />
-      <JobCard info={info} />
-      <DrawerComponent list={list} />
+      {show ? (
+        <div>
+          <div style={{ overflowY: "auto", overflowX: "hidden" }}>
+            <SearchFilter />
+            <CompanyProfile />
+          </div>
+          <div className="jobheadline u-center-text u-margin-top-medium u-margin-bottom-small">
+            Jobs Created
+          </div>
+          <JobCard info={info} />
+          <JobCard info={info} />
+          <JobCard info={info} />
+          <JobCard info={info} />
+          <DrawerComponent list={list} />
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 };
@@ -48,7 +54,7 @@ export async function getServerSideProps(ctx) {
     },
   ];
 
-  let show = true;
+  let show = false;
   const cookies = ctx.req.cookies;
 
   if (cookies.userId) {
@@ -58,12 +64,6 @@ export async function getServerSideProps(ctx) {
   if (!cookies.userId) {
     show = false;
   }
-
-  // const res=API.get("/",{
-  //   params:{
-  //     userId:
-  //   }
-  // })
 
   return {
     props: {

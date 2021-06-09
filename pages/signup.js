@@ -15,6 +15,7 @@ import loadable from "@loadable/component";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
 import API from "../API";
+import nookies from "nookies";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -41,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Signup = () => {
+const Signup = (props) => {
+  const { show } = props;
   const { authuser } = useContext(AuthContext);
   const classes = useStyles();
   const [email, setEmail] = useState("");
@@ -94,6 +96,10 @@ const Signup = () => {
           .auth()
           .currentUser.getIdToken()
           .then((token) => {
+            nookies.set(undefined, "token", token, {
+              path: "/",
+              maxAge: 30 * 24 * 60 * 60,
+            });
             console.log("Bearer", token);
             API({
               method: "post",
@@ -111,6 +117,10 @@ const Signup = () => {
                 let userId = result.data.userId;
                 console.log(userId);
                 localStorage.setItem("userId", userId);
+                nookies.set(undefined, "userId", userId, {
+                  path: "/",
+                  maxAge: 30 * 24 * 60 * 60,
+                });
                 window.location.href = "/dashboard";
               })
               .catch((err) => {
@@ -149,7 +159,7 @@ const Signup = () => {
           content="https://shramin.vercel.app/signup"
         ></meta>
       </Head>
-      <Navigation />
+      <Navigation show={show} />
       <Snackbar
         anchorOrigin={{
           vertical: "top",
@@ -177,7 +187,7 @@ const Signup = () => {
           <span style={{ fontSize: "15px" }}>{error}</span>
         </Alert>
       </Snackbar>
-      {!authuser ? (
+      {!authuser && !show ? (
         <div className="signup">
           <div className="signup__heading">Join ShramIn</div>
           <form onSubmit={(e) => handleForm(e)}>
@@ -252,7 +262,7 @@ const Signup = () => {
         ""
       )}
 
-      {authuser ? (
+      {authuser || show ? (
         <div className="activeuser">
           <div className="activeuser__logo">
             Welcome to Shram<span className="activeuser__logo--green">In</span>
@@ -264,5 +274,26 @@ const Signup = () => {
     </>
   );
 };
+
+export async function getServerSideProps(ctx) {
+  const cookies = ctx.req.cookies;
+
+  let show = true;
+
+  if (cookies.userId) {
+    show = true;
+  }
+
+  if (!cookies.userId) {
+    show = false;
+  }
+
+  return {
+    props: {
+      cookies: cookies,
+      show: show,
+    },
+  };
+}
 
 export default Signup;

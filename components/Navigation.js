@@ -3,11 +3,15 @@ import Link from "next/link";
 import firebase from "firebase/app";
 import { AuthContext } from "../auth";
 import { useRouter } from "next/router";
+import nookies, { parseCookies } from "nookies";
+import { destroyCookie } from "nookies";
 
 const Navigation = (props) => {
   const { user } = useContext(AuthContext);
   const { authuser } = useContext(AuthContext);
   const router = useRouter();
+  const [change, setChange] = useState(true);
+  const { show } = props;
   const pathname = router.pathname;
   const path =
     pathname === "/dashboard" ||
@@ -27,6 +31,10 @@ const Navigation = (props) => {
     e.preventDefault();
     await firebase.auth().signOut();
     localStorage.removeItem("userId");
+    setChange(!change);
+    destroyCookie(null, "token");
+    destroyCookie(null, "userId");
+
     if (!path) {
       window.location.href = "/login";
     }
@@ -36,6 +44,7 @@ const Navigation = (props) => {
     nav.checked = false;
     var list = document.getElementById("list");
   };
+
   return (
     <section className="navigation">
       <div className="navigation__logo">
@@ -83,7 +92,7 @@ const Navigation = (props) => {
             </Link>
           </li>
 
-          {authuser ? (
+          {show || authuser ? (
             <li className="navigation__item">
               <Link href="/dashboard">
                 <a
@@ -99,7 +108,7 @@ const Navigation = (props) => {
             ""
           )}
 
-          {authuser ? (
+          {show || authuser ? (
             <li className="navigation__item">
               <Link href="/createjob">
                 <a
@@ -115,7 +124,7 @@ const Navigation = (props) => {
             ""
           )}
 
-          {authuser ? (
+          {show || authuser ? (
             <li className="navigation__item">
               <Link href="/profile">
                 <a
@@ -131,7 +140,7 @@ const Navigation = (props) => {
             ""
           )}
 
-          {authuser ? (
+          {show || authuser ? (
             <li className="navigation__item">
               <Link href="/status">
                 <a
@@ -147,7 +156,7 @@ const Navigation = (props) => {
             ""
           )}
 
-          {authuser ? (
+          {show || authuser ? (
             <li className="navigation__item">
               <Link href="/jobs">
                 <a
@@ -165,7 +174,7 @@ const Navigation = (props) => {
         </ul>
       </div>
 
-      {!authuser ? (
+      {!show && !authuser ? (
         <div className="navigation__link">
           <Link href="/login">
             <a className="navigation__button">Employer Login</a>
@@ -174,7 +183,7 @@ const Navigation = (props) => {
       ) : (
         ""
       )}
-      {authuser ? (
+      {show || authuser ? (
         <div className="navigation__link">
           <a
             className="navigation__button"
@@ -206,7 +215,7 @@ const Navigation = (props) => {
             <a className="navigation__listitem">Features</a>
           </Link>
         </li>
-        {authuser ? (
+        {show || authuser ? (
           <li>
             <Link href="/createjob">
               <a className="navigation__listitem">Create New Job</a>
@@ -216,7 +225,7 @@ const Navigation = (props) => {
           ""
         )}
 
-        {authuser ? (
+        {show || authuser ? (
           <li>
             <Link href="/dashboard">
               <a className="navigation__listitem">Dashboard</a>
