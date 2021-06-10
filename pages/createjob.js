@@ -34,7 +34,6 @@ const CreateJob = (props) => {
   const { educationdata } = props;
   const { workdata } = props;
   const { salarydata } = props;
-  const { expdata } = props;
   const { locationdata } = props;
   console.log(props);
 
@@ -44,7 +43,6 @@ const CreateJob = (props) => {
   const [trade, setTrade] = useState(tradedata[0].id);
   const [education, setEducation] = useState(educationdata[0].id);
   const [work, setWork] = useState(workdata[0].id);
-  const [experience, setExperience] = useState(expdata[0].id);
   const [salary, setSalary] = useState(salarydata[0].id);
   const [location, setLocation] = useState(locationdata[0].id);
   const [description, setDescription] = useState("");
@@ -93,12 +91,10 @@ const CreateJob = (props) => {
         educationId: education,
         typeOfWorkId: work,
         bikeAndDl: selectedValue,
-        salaryProvide: salary,
         jobDescription: description,
         tradeId: trade,
         salaryId: salary,
         locationId: location,
-        educationId: education,
       };
       API({
         url: allApi.job,
@@ -108,6 +104,7 @@ const CreateJob = (props) => {
           "Content-Type": "application/json",
           "Cache-Control": "no-cache",
           Connection: "keep-alive",
+          Accept: "application/json",
         },
         data: jobdata,
       })
@@ -120,7 +117,7 @@ const CreateJob = (props) => {
             console.log("Somthing happened wrong");
           }
         })
-        .catch((err) => err);
+        .catch((err) => console.log(err));
     }
   };
 
@@ -285,24 +282,6 @@ const CreateJob = (props) => {
               </div>
 
               <div class="createjob__field">
-                <div class="createjob__label">Experience</div>
-
-                <select
-                  value={experience}
-                  onChange={(e) => setExperience(e.target.value)}
-                  onKeyPress={(e) => handleKey(e)}
-                  className="createjob__select"
-                  id="5"
-                >
-                  {expdata.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.masterName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div class="createjob__field">
                 <div class="createjob__label">Salary Provided for Job</div>
 
                 <select
@@ -457,21 +436,6 @@ export async function getServerSideProps(ctx) {
 
     salarydata = await salary.data;
 
-    let experience = await API({
-      url: allApi.master,
-      params: {
-        masterTypeId: 3,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
-      },
-    });
-
-    expdata = await experience.data;
-
     let location = await API({
       url: allApi.master,
       params: {
@@ -496,7 +460,6 @@ export async function getServerSideProps(ctx) {
       educationdata: show ? educationdata : "",
       workdata: show ? workdata : "",
       salarydata: show ? salarydata : "",
-      expdata: show ? expdata : "",
       locationdata: show ? locationdata : "",
     },
   };
