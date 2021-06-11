@@ -6,9 +6,11 @@
 @import "base/typography";
 @import "base/utilities";
 
+@import "components/cancard";
 @import "components/jobcard";
 @import "components/profile";
 @import "components/search";
+@import "components/statusbar";
 
 @import "layout/grid";
 @import "layout/navbar";

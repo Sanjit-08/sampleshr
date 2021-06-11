@@ -1,0 +1,136 @@
+.candidatebox {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+  margin-left: 28rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 10rem;
+}
+
+.cancard {
+  width: 40rem;
+  height: 35rem;
+  //   border: 1px solid black;
+  flex-basis: 49%;
+  padding: 3rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  background-color: #eceeed;
+  position: relative;
+
+  &__info {
+    margin-left: 1rem;
+    list-style: none;
+  }
+
+  &__name {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  &__infohead {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+
+    &--text {
+      font-weight: normal;
+    }
+  }
+
+  &__buttons {
+    margin-left: 1rem;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__button {
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    outline: 0;
+    border: 1px solid gray;
+
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+
+  &__right {
+    position: absolute;
+    top: 3rem;
+    right: 4rem;
+    float: right;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__profilepic {
+    transform: translateX(15%);
+  }
+
+  &__candetails {
+    margin-bottom: 1rem;
+  }
+
+  &__candbutton {
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: $color-white;
+    padding: 0.8rem 0.7rem;
+    border-radius: 0.5rem;
+    outline: 0;
+    border: none;
+
+    &--videoresume {
+      background-color: $button-active-blue;
+    }
+
+    &--resume {
+      background-color: #ec407a;
+    }
+
+    &--contact {
+      background-color: #7b1fa2;
+    }
+  }
+
+  &__shortlist {
+    background-color: $button-active-blue;
+    color: $color-white;
+  }
+
+  &__hired {
+    background-color: green;
+    color: $color-white;
+  }
+
+  &__contacted {
+    background-color: #7b1fa2;
+    color: $color-white;
+  }
+
+  &__rejected {
+    background-color: #f44336;
+    color: $color-white;
+  }
+
+  &__updatestatus {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.6rem;
+    color: white;
+    background-color: #616161;
+    outline: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    * {
+      background-color: $color-white;
+      color: black;
+      cursor: pointer;
+    }
+  }
+}

@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { isMobile } from "react-device-detect";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -20,7 +21,7 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   label: {
-    fontSize: "16px",
+    fontSize: "2rem",
   },
   formControl: {
     minWidth: 120,
@@ -136,6 +137,12 @@ const CreateJob = (props) => {
       }
     }
   };
+
+  var height = 70;
+
+  if (isMobile) {
+    height = 35;
+  }
   return (
     <>
       <Navigation show={show} />
@@ -180,7 +187,9 @@ const CreateJob = (props) => {
                   id="outlined-basic"
                   variant="outlined"
                   className="createjob__company"
-                  InputProps={{ style: { fontSize: 20, fontWeight: 300 } }}
+                  InputProps={{
+                    style: { fontSize: 20, fontWeight: 300, height: height },
+                  }}
                 />
               </div>
 

@@ -7,9 +7,9 @@ const JobCard = (props) => {
   const { profile, company, location, salary, date } = info[0];
   return (
     <div className="jobcard">
-      <div className="jobcard__shape">
+      {/* <div className="jobcard__shape">
         <div className="jobcard__image"></div>
-      </div>
+      </div> */}
       <div className="jobcard__information">
         <div className="jobcard__profile">{profile}</div>
         <div className="jobcard__company">{company}</div>

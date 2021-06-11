@@ -7,6 +7,7 @@ import CompanyProfile from "../components/CompanyProfile";
 import JobCard from "../components/JobCard";
 import { InferGetServerSidePropsType, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
+import { allApi } from "../config";
 import API from "../API";
 
 const Dashboard = (props) => {
@@ -14,6 +15,10 @@ const Dashboard = (props) => {
   const { info } = props;
   const { cookies } = props;
   const { show } = props;
+  const { jobdata } = props;
+
+  console.log(jobdata);
+
   console.log(show);
   console.log(cookies.userId);
   console.log(props);
@@ -54,8 +59,28 @@ export async function getServerSideProps(ctx) {
     },
   ];
 
-  let show = false;
   const cookies = ctx.req.cookies;
+
+  let userId = cookies.userId;
+
+  let token = cookies.token;
+
+  let job = await API({
+    url: allApi.job,
+    params: {
+      userId: userId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+    },
+  });
+
+  let jobdata = await job.data;
+
+  let show = false;
 
   if (cookies.userId) {
     show = true;
@@ -71,6 +96,7 @@ export async function getServerSideProps(ctx) {
       info: info,
       cookies: cookies,
       show: show,
+      jobdata: jobdata,
     },
   };
 }

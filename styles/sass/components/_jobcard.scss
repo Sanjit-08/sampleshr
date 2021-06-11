@@ -1,6 +1,10 @@
 .jobheadline {
   font-size: 3rem;
   margin-left: 8rem;
+
+  @include respond(phone) {
+    margin-left: 1rem;
+  }
 }
 
 .jobcard {
@@ -15,6 +19,12 @@
   margin-bottom: 10rem;
   position: relative;
 
+  @include respond(phone) {
+    margin-left: 1.4rem;
+    width: 95%;
+    margin-bottom: 5rem;
+  }
+
   &__shape {
     width: 10rem;
     height: 10rem;
@@ -23,14 +33,18 @@
     border: 1px solid grey;
     float: left;
     position: relative;
+
+    @include respond(phone) {
+      display: none;
+    }
   }
 
   &__image {
-    width: 170%;
     background-size: cover;
-    transform: translate(-5%, 29%);
+    width: 120%;
+    transform: translateX(-30%);
     height: 100%;
-    background: url("../../../public/logo.png");
+    background: url("../../../public/shraminlogo.png");
     backface-visibility: hidden;
   }
 
@@ -40,6 +54,11 @@
     float: left;
     margin-left: 5rem;
     position: relative;
+
+    @include respond(phone) {
+      margin-left: 2rem;
+      margin-top: -1rem;
+    }
   }
 
   &__profile {
@@ -86,5 +105,9 @@
     border: 1px solid $color-linkhover;
     color: $color-navigation;
     padding: 0.4rem 1rem;
+
+    @include respond(phone) {
+      right: 1rem;
+    }
   }
 }

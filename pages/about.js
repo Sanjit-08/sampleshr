@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import loadable from "@loadable/component";
+import { AuthContext } from "../auth";
 const Navigation = loadable(() => import("../components/Navigation"));
 
 const About = (props) => {

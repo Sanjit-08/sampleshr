@@ -51,6 +51,100 @@ body {
 .u-margin-top-small {
   margin-top: 2rem !important; }
 
+.candidatebox {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 5rem;
+  margin-left: 28rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 10rem; }
+
+.cancard {
+  width: 40rem;
+  height: 35rem;
+  flex-basis: 49%;
+  padding: 3rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  background-color: #eceeed;
+  position: relative; }
+  .cancard__info {
+    margin-left: 1rem;
+    list-style: none; }
+  .cancard__name {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem; }
+  .cancard__infohead {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 1rem; }
+    .cancard__infohead--text {
+      font-weight: normal; }
+  .cancard__buttons {
+    margin-left: 1rem;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: row; }
+  .cancard__button {
+    padding: 0.5rem 0.7rem;
+    cursor: pointer;
+    border-radius: 0.5rem;
+    outline: 0;
+    border: 1px solid gray; }
+    .cancard__button:not(:last-child) {
+      margin-right: 1rem; }
+  .cancard__right {
+    position: absolute;
+    top: 3rem;
+    right: 4rem;
+    float: right;
+    display: flex;
+    flex-direction: column; }
+  .cancard__profilepic {
+    transform: translateX(15%); }
+  .cancard__candetails {
+    margin-bottom: 1rem; }
+  .cancard__candbutton {
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: #fff;
+    padding: 0.8rem 0.7rem;
+    border-radius: 0.5rem;
+    outline: 0;
+    border: none; }
+    .cancard__candbutton--videoresume {
+      background-color: #1669f2; }
+    .cancard__candbutton--resume {
+      background-color: #ec407a; }
+    .cancard__candbutton--contact {
+      background-color: #7b1fa2; }
+  .cancard__shortlist {
+    background-color: #1669f2;
+    color: #fff; }
+  .cancard__hired {
+    background-color: green;
+    color: #fff; }
+  .cancard__contacted {
+    background-color: #7b1fa2;
+    color: #fff; }
+  .cancard__rejected {
+    background-color: #f44336;
+    color: #fff; }
+  .cancard__updatestatus {
+    padding: 0.5rem 0.7rem;
+    font-size: 1.6rem;
+    color: white;
+    background-color: #616161;
+    outline: none;
+    border-radius: 0.5rem;
+    cursor: pointer; }
+    .cancard__updatestatus * {
+      background-color: #fff;
+      color: black;
+      cursor: pointer; }
+
 .jobheadline {
   font-size: 3rem;
   margin-left: 8rem; }
@@ -86,11 +180,11 @@ body {
       .jobcard__shape {
         display: none; } }
   .jobcard__image {
-    width: 170%;
     background-size: cover;
-    transform: translate(-5%, 29%);
+    width: 120%;
+    transform: translateX(-30%);
     height: 100%;
-    background: url("../../../public/logo.png");
+    background: url("../../../public/shraminlogo.png");
     backface-visibility: hidden; }
   .jobcard__information {
     display: flex;
@@ -268,6 +362,39 @@ body {
       font-size: 1.5rem;
       font-weight: 600;
       color: gray; }
+
+.statusbox {
+  margin-top: 15rem;
+  margin-left: 28rem; }
+
+.statusbar {
+  width: 95%;
+  height: 6rem;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 1rem; }
+  .statusbar__options {
+    display: flex;
+    flex-direction: row; }
+  .statusbar__status {
+    margin-right: 3.5rem;
+    font-size: 2rem;
+    color: black; }
+  .statusbar__number {
+    margin-left: 1rem;
+    padding: 0.6rem 1.6rem;
+    color: #fff;
+    outline: none;
+    border-radius: 0.6rem;
+    font-size: 1.6rem; }
+    .statusbar__number--shortlist {
+      background-color: #1669f2; }
+    .statusbar__number--hired {
+      background-color: green; }
+    .statusbar__number--contacted {
+      background-color: #7b1fa2; }
+    .statusbar__number--rejected {
+      background-color: #f44336; }
 
 .row {
   max-width: 114rem;
@@ -527,15 +654,26 @@ body {
   border-radius: 10px;
   margin: 18rem auto;
   font-family: "Roboto", sans-serif; }
+  @media only screen and (max-width: 37.5em) {
+    .createjob {
+      border: none;
+      margin-bottom: 0rem;
+      margin-top: 12rem; } }
   .createjob__heading {
     margin-top: 0rem;
     font-size: 3rem;
     font-family: "Ubuntu", sans-serif;
     font-weight: 700; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__heading {
+        white-space: nowrap; } }
   .createjob__details {
     display: flex;
     flex-direction: column;
     margin-left: 0rem; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__details {
+        margin-left: -10rem; } }
   .createjob__field {
     display: flex;
     flex-direction: column; }
@@ -547,6 +685,10 @@ body {
   .createjob__company {
     font-size: 2.5rem;
     width: 40%; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__company {
+        width: 100%;
+        line-height: 1rem; } }
   .createjob__select {
     width: 35%;
     height: 40%;
@@ -566,10 +708,20 @@ body {
     .createjob__select:focus {
       border: 1px solid blue;
       border-radius: 5px; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__select {
+        width: 70%; } }
   .createjob__select * {
     font-size: 1.8rem; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__select * {
+        font-size: 1.4rem;
+        width: 30%; } }
   .createjob__option {
     padding: 1.5rem; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__option {
+        padding: 0.2rem; } }
   .createjob__textbox {
     width: 40%;
     height: 14rem;
@@ -577,6 +729,10 @@ body {
     padding: 2rem;
     outline: 0;
     font-size: 1.5rem; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__textbox {
+        width: 100%;
+        height: 12rem; } }
   .createjob__submit {
     background-color: #1669f2;
     color: #fff;
@@ -591,6 +747,9 @@ body {
     .createjob__submit:hover {
       background-color: #0a66c2;
       font-weight: bolder; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__submit {
+        margin-left: 35%; } }
 
 .hero {
   padding-top: 0;

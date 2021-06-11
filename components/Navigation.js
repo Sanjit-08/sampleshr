@@ -29,11 +29,11 @@ const Navigation = (props) => {
   // }, [user]);
   const logout = async (e) => {
     e.preventDefault();
+    destroyCookie(null, "userId");
     await firebase.auth().signOut();
     localStorage.removeItem("userId");
     setChange(!change);
     destroyCookie(null, "token");
-    destroyCookie(null, "userId");
 
     if (!path) {
       window.location.href = "/login";
