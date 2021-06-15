@@ -239,7 +239,7 @@ const Login = (props) => {
             });
             API({
               method: "post",
-              url: allApi.signup,
+              url: allApi.employerSignup,
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -247,17 +247,20 @@ const Login = (props) => {
                 Connection: "keep-alive",
                 Accept: "application/json",
               },
+              data: {
+                name: "Testing",
+              },
             })
               .then((result) => {
                 console.log(result);
-                let userId = result.data.userId;
-                console.log(userId);
-                localStorage.setItem("userId", userId);
+                // let userId = result.data.userId;
+                // console.log(userId);
+                // localStorage.setItem("userId", userId);
 
-                nookies.set(undefined, "userId", userId, {
-                  path: "/",
-                  maxAge: 30 * 24 * 60 * 60,
-                });
+                // nookies.set(undefined, "userId", userId, {
+                //   path: "/",
+                //   maxAge: 30 * 24 * 60 * 60,
+                // });
                 setChange(!change);
                 // registerEmployer(token, empdata);
               })
