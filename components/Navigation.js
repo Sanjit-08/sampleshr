@@ -14,11 +14,7 @@ const Navigation = (props) => {
   const { show } = props;
   const pathname = router.pathname;
   const path =
-    pathname === "/dashboard" ||
-    pathname === "/candidateprofile" ||
-    pathname === "/candidatestatus" ||
-    pathname === "/jobs" ||
-    pathname === "/createjob"
+    pathname === "/about" || pathname === "/features" || pathname === "/"
       ? false
       : true;
   // const [show, setshow] = useState(false);
@@ -28,14 +24,16 @@ const Navigation = (props) => {
   //   }, 500);
   // }, [user]);
   const logout = async (e) => {
-    e.preventDefault();
     destroyCookie(null, "userId");
+    if (!path) {
+      window.location.reload();
+    }
     await firebase.auth().signOut();
     localStorage.removeItem("userId");
     setChange(!change);
     destroyCookie(null, "token");
-
-    if (!path) {
+    destroyCookie(null, "employerId");
+    if (path) {
       window.location.href = "/login";
     }
   };

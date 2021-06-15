@@ -10,9 +10,9 @@ const CandidateProfile = (props) => {
   return (
     <>
       <Navigation show={show} />
-      <DrawerComponent list={list} />
       {show ? (
         <div>
+          <DrawerComponent list={list} />
           <StatusBar />
           <div className="candidatebox" style={{ display: "flex" }}>
             <CandidateCard />

@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Roboto:500");
@@ -50,6 +51,15 @@ body {
 
 .u-margin-top-small {
   margin-top: 2rem !important; }
+
+.candidateapplication {
+  margin-left: 28rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 15rem;
+  margin-bottom: 4rem;
+  word-spacing: 0.5rem;
+  font-family: "Ubuntu", sans-serif; }
 
 .candidatebox {
   display: flex;
@@ -155,13 +165,14 @@ body {
 .jobcard {
   text-align: center;
   width: 60%;
-  height: 20rem;
+  height: 18rem;
   margin-left: 40rem;
   border-radius: 1rem;
-  border: 1px solid grey;
-  padding: 4rem 7rem;
+  border: 1px solid #b0bec5;
+  color: #001730;
+  padding: 2rem 7rem;
   padding-left: 2rem;
-  margin-bottom: 10rem;
+  margin-bottom: 6rem;
   position: relative; }
   @media only screen and (max-width: 37.5em) {
     .jobcard {
@@ -190,7 +201,8 @@ body {
     display: flex;
     flex-direction: column;
     float: left;
-    margin-left: 5rem;
+    padding-left: 4rem;
+    width: 40rem;
     position: relative; }
     @media only screen and (max-width: 37.5em) {
       .jobcard__information {
@@ -200,30 +212,35 @@ body {
     font-size: 1.7rem;
     letter-spacing: 0.2rem;
     font-weight: 700;
-    margin-bottom: 0.5rem; }
+    margin-bottom: 0.5rem;
+    display: flex;
+    flex-basis: 50%; }
   .jobcard__company {
     font-size: 1.4rem;
-    margin-left: -1.8rem;
-    margin-bottom: 0.4rem; }
+    position: absolute;
+    top: 2.5rem;
+    left: 4rem; }
   .jobcard__location {
     font-size: 1.4rem;
-    left: 0rem;
+    position: absolute;
     top: 5rem;
-    position: absolute; }
+    left: 4rem; }
   .jobcard__salary {
     font-size: 1.4rem;
-    left: 0rem;
-    top: 7rem;
     font-weight: 700;
-    position: absolute; }
+    margin-bottom: 0.8rem;
+    position: absolute;
+    top: 7.5rem;
+    left: 4rem; }
   .jobcard__date {
     font-size: 1.4rem;
-    left: -0.4rem;
-    top: 9.5rem;
-    position: absolute; }
+    position: absolute;
+    top: 10.5rem;
+    left: 3.7rem; }
   .jobcard__application {
     float: right;
     position: absolute;
+    cursor: pointer;
     right: 4rem;
     bottom: 2rem;
     border-radius: 5px;
@@ -231,6 +248,12 @@ body {
     border: 1px solid #4ad7d1;
     color: #001730;
     padding: 0.4rem 1rem; }
+    .jobcard__application:link, .jobcard__application:visited {
+      text-decoration: none;
+      color: #001730; }
+    .jobcard__application:hover {
+      color: #fff;
+      background-color: #4ad7d1; }
     @media only screen and (max-width: 37.5em) {
       .jobcard__application {
         right: 1rem; } }
@@ -241,7 +264,7 @@ body {
   padding: 2rem;
   margin-left: 30rem;
   border-radius: 1rem;
-  border: 1px solid gray;
+  border: 1px solid #b0bec5;
   outline: 0;
   position: relative;
   font-family: "Ubuntu", sans-serif; }
@@ -364,17 +387,18 @@ body {
       color: gray; }
 
 .statusbox {
-  margin-top: 15rem;
+  margin-top: 1rem;
   margin-left: 28rem; }
 
 .statusbar {
   width: 95%;
-  height: 6rem;
-  padding: 1rem;
+  height: 7rem;
+  padding: 1.6rem;
   border: 1px solid black;
   border-radius: 1rem; }
   .statusbar__options {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row; }
   .statusbar__status {
     margin-right: 3.5rem;
@@ -650,7 +674,7 @@ body {
   width: 80%;
   padding: 3rem 10rem;
   padding-bottom: 1rem;
-  border: 1px solid #787878;
+  border: 1px solid #b0bec5;
   border-radius: 10px;
   margin: 18rem auto;
   font-family: "Roboto", sans-serif; }

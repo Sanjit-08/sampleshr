@@ -10,13 +10,14 @@
 .jobcard {
   text-align: center;
   width: 60%;
-  height: 20rem;
+  height: 18rem;
   margin-left: 40rem;
   border-radius: 1rem;
-  border: 1px solid grey;
-  padding: 4rem 7rem;
+  border: 1px solid $color-greyborder;
+  color: $color-navigation;
+  padding: 2rem 7rem;
   padding-left: 2rem;
-  margin-bottom: 10rem;
+  margin-bottom: 6rem;
   position: relative;
 
   @include respond(phone) {
@@ -52,9 +53,9 @@
     display: flex;
     flex-direction: column;
     float: left;
-    margin-left: 5rem;
+    padding-left: 4rem;
+    width: 40rem;
     position: relative;
-
     @include respond(phone) {
       margin-left: 2rem;
       margin-top: -1rem;
@@ -66,38 +67,46 @@
     letter-spacing: 0.2rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
+    display: flex;
+    flex-basis: 50%;
   }
 
   &__company {
     font-size: 1.4rem;
-    margin-left: -1.8rem;
-    margin-bottom: 0.4rem;
+    position: absolute;
+    top: 2.5rem;
+    left: 4rem;
   }
   &__location {
     font-size: 1.4rem;
-    left: 0rem;
-    top: 5rem;
     position: absolute;
+    top: 5rem;
+    left: 4rem;
+    // left: 0rem;
+    // top: 5rem;
+    // position: absolute;
   }
 
   &__salary {
     font-size: 1.4rem;
-    left: 0rem;
-    top: 7rem;
     font-weight: 700;
+    margin-bottom: 0.8rem;
     position: absolute;
+    top: 7.5rem;
+    left: 4rem;
   }
 
   &__date {
     font-size: 1.4rem;
-    left: -0.4rem;
-    top: 9.5rem;
     position: absolute;
+    top: 10.5rem;
+    left: 3.7rem;
   }
 
   &__application {
     float: right;
     position: absolute;
+    cursor: pointer;
     right: 4rem;
     bottom: 2rem;
     border-radius: 5px;
@@ -105,6 +114,17 @@
     border: 1px solid $color-linkhover;
     color: $color-navigation;
     padding: 0.4rem 1rem;
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+      color: $color-navigation;
+    }
+
+    &:hover {
+      color: $color-white;
+      background-color: $color-linkhover;
+    }
 
     @include respond(phone) {
       right: 1rem;

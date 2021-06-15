@@ -15,6 +15,7 @@ import loadable from "@loadable/component";
 const Navigation = loadable(() => import("../components/Navigation"));
 import { AuthContext } from "../auth";
 import API from "../API";
+import { allApi } from "../config";
 import nookies from "nookies";
 
 function Alert(props) {
@@ -86,15 +87,44 @@ const Signup = (props) => {
     console.log(error);
   };
 
-  const SignUp = async () => {
-    await firebase
+  const registerEmployer = (token, empdata) => {
+    API({
+      url: allApi.employer,
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+        Accept: "application/json",
+      },
+      data: empdata,
+    })
+      .then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+          console.log(response);
+          console.log(response.data.employerId);
+          let employerId = response.data.employerId;
+          nookies.set(undefined, "employerId", employerId, {
+            path: "/",
+            maxAge: 30 * 24 * 60 * 60,
+          });
+        } else {
+          console.log("Something happened wrong");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const SignUp = () => {
+    firebase
       .auth()
       .createUserWithEmailAndPassword(email, pass)
       .then(function () {
         setOpen(true);
         firebase
           .auth()
-          .currentUser.getIdToken()
+          .currentUser.getIdToken(/* forceRefresh */ true)
           .then((token) => {
             nookies.set(undefined, "token", token, {
               path: "/",
@@ -121,7 +151,12 @@ const Signup = (props) => {
                   path: "/",
                   maxAge: 30 * 24 * 60 * 60,
                 });
-                window.location.href = "/dashboard";
+                let empdata = {
+                  id: userId,
+                  name: "Test123",
+                };
+                registerEmployer(token, empdata);
+                // window.location.href = "/dashboard";
               })
               .catch((err) => {
                 console.log(err);
@@ -189,7 +224,7 @@ const Signup = (props) => {
       </Snackbar>
       {!authuser && !show ? (
         <div className="signup">
-          <div className="signup__heading">Join ShramIn</div>
+          <div className="signup__heading">Join ShramIN</div>
           <form onSubmit={(e) => handleForm(e)}>
             <label className="signup__label">Email</label>
             <div className="signup__textbox">
@@ -251,7 +286,7 @@ const Signup = (props) => {
 
           <div className="signup__user u-margin-top-medium u-center-text">
             <div className="signup__user__text">
-              Already on ShramIn ?
+              Already on ShramIN ?
               <Link href="/login">
                 <a className="signup__user__link"> Login</a>
               </Link>
@@ -265,7 +300,7 @@ const Signup = (props) => {
       {authuser || show ? (
         <div className="activeuser">
           <div className="activeuser__logo">
-            Welcome to Shram<span className="activeuser__logo--green">In</span>
+            Welcome to Shram<span className="activeuser__logo--green">IN</span>
           </div>
         </div>
       ) : (
@@ -278,7 +313,7 @@ const Signup = (props) => {
 export async function getServerSideProps(ctx) {
   const cookies = ctx.req.cookies;
 
-  let show = true;
+  let show = false;
 
   if (cookies.userId) {
     show = true;

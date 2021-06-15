@@ -15,7 +15,11 @@ const Dashboard = (props) => {
   const { info } = props;
   const { cookies } = props;
   const { show } = props;
+  const { trades } = props;
+  console.log(trades);
   const { jobdata } = props;
+  const { revdata } = props;
+  console.log(revdata);
 
   console.log(jobdata);
 
@@ -32,12 +36,21 @@ const Dashboard = (props) => {
             <CompanyProfile />
           </div>
           <div className="jobheadline u-center-text u-margin-top-medium u-margin-bottom-small">
-            Jobs Created
+            MY JOBS
           </div>
-          <JobCard info={info} />
-          <JobCard info={info} />
-          <JobCard info={info} />
-          <JobCard info={info} />
+          {jobdata.map((job) => (
+            <JobCard
+              company={job.companyName}
+              trade={job.trade.masterName}
+              location={job.location.masterName}
+              salary={job.salary.masterName}
+              date={job.createdAt}
+            />
+          ))}
+          {/* <JobCard info={info} jobdata={jobdata} />
+          <JobCard info={info} jobdata={jobdata} />
+          <JobCard info={info} jobdata={jobdata} />
+          <JobCard info={info} jobdata={jobdata} /> */}
           <DrawerComponent list={list} />
         </div>
       ) : (
@@ -65,10 +78,27 @@ export async function getServerSideProps(ctx) {
 
   let token = cookies.token;
 
-  let job = await API({
+  let employerId = "9d704787-031e-4ee4-9cb0-db158f4df96b";
+
+  // let job = await API({
+  //   url: allApi.job,
+  //   params: {
+  //     userId: userId,
+  //   },
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //     "Content-Type": "application/json",
+  //     "Cache-Control": "no-cache",
+  //     Connection: "keep-alive",
+  //   },
+  // });
+
+  // let jobdata = await job.data;
+
+  let jobs = await API({
     url: allApi.job,
     params: {
-      userId: userId,
+      employer: employerId,
     },
     headers: {
       Authorization: `Bearer ${token}`,
@@ -78,7 +108,11 @@ export async function getServerSideProps(ctx) {
     },
   });
 
-  let jobdata = await job.data;
+  let jobdata = await jobs.data;
+
+  jobdata = [...jobdata].reverse();
+
+  let trades = jobdata.map((item) => item.trade.masterName);
 
   let show = false;
 
@@ -96,6 +130,7 @@ export async function getServerSideProps(ctx) {
       info: info,
       cookies: cookies,
       show: show,
+      trades: trades,
       jobdata: jobdata,
     },
   };

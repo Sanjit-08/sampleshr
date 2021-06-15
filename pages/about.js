@@ -70,7 +70,7 @@ export async function getServerSideProps(ctx) {
   const cookies = ctx.req.cookies;
 
   const userId = cookies.userId;
-  let show = true;
+  let show = false;
 
   if (userId) {
     show = true;

@@ -72,7 +72,7 @@ const CandidateCard = (props) => {
             Status : <span class="cancard__infohead--text">Available</span>
           </li>
         </ul>
-        <div class="cancard__buttons">
+        {/* <div class="cancard__buttons">
           <button
             className={
               "cancard__button " + (shortlist ? "cancard__shortlist" : "")
@@ -99,7 +99,7 @@ const CandidateCard = (props) => {
           >
             Rejected
           </button>
-        </div>
+        </div> */}
       </div>
 
       <div class="cancard__right">

@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import loadable from "@loadable/component";
+import { AuthContext } from "../auth";
 const Navigation = loadable(() => import("../components/Navigation"));
 
 const Features = (props) => {
@@ -44,7 +45,7 @@ export async function getServerSideProps(ctx) {
   const cookies = ctx.req.cookies;
 
   const userId = cookies.userId;
-  let show = true;
+  let show = false;
 
   if (userId) {
     show = true;

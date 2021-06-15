@@ -137,15 +137,43 @@ const Login = (props) => {
     }
   });
 
-  const Login = async () => {
-    await firebase
+  // const registerEmployer = (token, empdata) => {
+  //   API({
+  //     url: allApi.employerSignUp,
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Cache-Control": "no-cache",
+  //       Connection: "keep-alive",
+  //       Accept: "application/json",
+  //     },
+  //     data: empdata,
+  //   })
+  //     .then((response) => {
+  //       if (response.status >= 200 && response.status < 300) {
+  //         console.log(response);
+  //         console.log(response.data.employerId);
+  //         let employerId = response.data.employerId;
+  //         nookies.set(undefined, "employerId", employerId, {
+  //           path: "/",
+  //           maxAge: 30 * 24 * 60 * 60,
+  //         });
+  //       } else {
+  //         console.log("Something happened wrong");
+  //       }
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const Login = () => {
+    firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then(function () {
         setOpen(true);
         firebase
           .auth()
-          .currentUser.getToken(/* forceRefresh */ true)
+          .currentUser.getIdToken(/* forceRefresh */ true)
           .then((token) => {
             nookies.set(undefined, "token", token, {
               path: "/",
@@ -173,7 +201,11 @@ const Login = (props) => {
                   maxAge: 30 * 24 * 60 * 60,
                 });
                 setChange(!change);
-                window.location.href = "/dashboard";
+                let empdata = {
+                  name: "Sanjit",
+                };
+                registerEmployer(token, empdata);
+                // window.location.href = "/dashboard";
               })
               .catch((err) => {
                 console.log(err);
@@ -210,7 +242,7 @@ const Login = (props) => {
               url: allApi.signup,
               headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
                 "Cache-Control": "no-cache",
                 Connection: "keep-alive",
                 Accept: "application/json",
@@ -227,7 +259,7 @@ const Login = (props) => {
                   maxAge: 30 * 24 * 60 * 60,
                 });
                 setChange(!change);
-                // window.location.href = "/dashboard";
+                // registerEmployer(token, empdata);
               })
               .catch((err) => {
                 console.log(err);
@@ -436,7 +468,7 @@ const Login = (props) => {
           <div className="u-margin-top-small u-center-text login__ortext">
             OR
           </div>
-          <div className="login__heading u-center-text">Login to ShramIn</div>
+          <div className="login__heading u-center-text">Login to ShramIN</div>
           <form onSubmit={(e) => handleForm(e)}>
             <div className="login__textbox">
               <TextField
@@ -502,7 +534,7 @@ const Login = (props) => {
           </form>
           <div className="login__newuser u-margin-top-small" id="newuser">
             <div className="login__newuser__text">
-              New to ShramIn?
+              New to ShramIN?
               <Link href="/signup">
                 <a className="login__newuser__link"> Sign Up</a>
               </Link>
@@ -557,7 +589,7 @@ const Login = (props) => {
 export async function getServerSideProps(ctx) {
   const cookies = ctx.req.cookies;
 
-  let hide = true;
+  let hide = false;
 
   if (cookies.userId) {
     hide = true;
