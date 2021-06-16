@@ -5,6 +5,7 @@ import DrawerComponent from "../../components/DrawerComponent";
 import StatusBar from "../../components/StatusBar";
 import CandidateCard from "../../components/CandidateCard";
 import NotFound from "../../components/NotFound";
+import { isMobile } from "react-device-detect";
 
 const JobApplications = (props) => {
   const { list } = props;
@@ -32,7 +33,7 @@ const JobApplications = (props) => {
               <div className="candidateapplication">
                 Job Applications for {trade}
               </div>
-              <DrawerComponent list={list} />
+              {!isMobile ? <DrawerComponent list={list} /> : ""}
 
               <StatusBar />
               <div className="candidatebox" style={{ display: "flex" }}>

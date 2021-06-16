@@ -137,34 +137,6 @@ const Login = (props) => {
     }
   });
 
-  // const registerEmployer = (token, empdata) => {
-  //   API({
-  //     url: allApi.employerSignUp,
-  //     method: "POST",
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Cache-Control": "no-cache",
-  //       Connection: "keep-alive",
-  //       Accept: "application/json",
-  //     },
-  //     data: empdata,
-  //   })
-  //     .then((response) => {
-  //       if (response.status >= 200 && response.status < 300) {
-  //         console.log(response);
-  //         console.log(response.data.employerId);
-  //         let employerId = response.data.employerId;
-  //         nookies.set(undefined, "employerId", employerId, {
-  //           path: "/",
-  //           maxAge: 30 * 24 * 60 * 60,
-  //         });
-  //       } else {
-  //         console.log("Something happened wrong");
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   const Login = () => {
     firebase
       .auth()
@@ -182,30 +154,35 @@ const Login = (props) => {
             console.log("Bearer", token);
             API({
               method: "post",
-              url: allApi.signup,
+              url: allApi.employerSignUp,
               headers: {
                 Authorization: `Bearer ${token}`,
-                "Content-Type": "multipart/form-data",
+                "Content-Type": "application/json",
                 "Cache-Control": "no-cache",
                 Connection: "keep-alive",
                 Accept: "application/json",
+              },
+              data: {
+                name: "Testing",
               },
             })
               .then((result) => {
                 console.log(result);
                 let userId = result.data.userId;
+                let employerId = result.data.employerId;
                 console.log(userId);
                 localStorage.setItem("userId", userId);
                 nookies.set(undefined, "userId", userId, {
                   path: "/",
                   maxAge: 30 * 24 * 60 * 60,
                 });
+                nookies.set(undefined, "employerId", employerId, {
+                  path: "/",
+                  maxAge: 30 * 24 * 60 * 60,
+                });
                 setChange(!change);
-                let empdata = {
-                  name: "Sanjit",
-                };
-                registerEmployer(token, empdata);
-                // window.location.href = "/dashboard";
+
+                window.location.href = "/dashboard";
               })
               .catch((err) => {
                 console.log(err);
@@ -242,7 +219,7 @@ const Login = (props) => {
             });
             API({
               method: "post",
-              url: allApi.employerSignup,
+              url: allApi.employerSignUp,
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -255,16 +232,21 @@ const Login = (props) => {
             })
               .then((result) => {
                 console.log(result);
-                // let userId = result.data.userId;
-                // console.log(userId);
-                // localStorage.setItem("userId", userId);
+                let userId = result.data.userId;
+                let employerId = result.data.employerId;
+                console.log(userId);
+                localStorage.setItem("userId", userId);
 
-                // nookies.set(undefined, "userId", userId, {
-                //   path: "/",
-                //   maxAge: 30 * 24 * 60 * 60,
-                // });
+                nookies.set(undefined, "userId", userId, {
+                  path: "/",
+                  maxAge: 30 * 24 * 60 * 60,
+                });
+                nookies.set(undefined, "employerId", employerId, {
+                  path: "/",
+                  maxAge: 30 * 24 * 60 * 60,
+                });
                 setChange(!change);
-                // registerEmployer(token, empdata);
+                window.location.href = "/dashboard";
               })
               .catch((err) => {
                 console.log(err);
@@ -314,25 +296,33 @@ const Login = (props) => {
               console.log(token);
               API({
                 method: "post",
-                url: allApi.signup,
+                url: allApi.employerSignUp,
                 headers: {
                   Authorization: `Bearer ${token}`,
-                  "Content-Type": "multipart/form-data",
+                  "Content-Type": "application/json",
                   "Cache-Control": "no-cache",
                   Connection: "keep-alive",
                   Accept: "application/json",
+                },
+                data: {
+                  name: "Testing",
                 },
               })
                 .then((result) => {
                   console.log(result);
                   let userId = result.data.userId;
+                  let employerId = result.data.employerId;
                   console.log(userId);
                   localStorage.setItem("userId", userId);
                   nookies.set(undefined, "userId", userId, {
                     path: "/",
                     maxAge: 30 * 24 * 60 * 60,
                   });
-                  setChange(!change);
+                  nookies.set(undefined, "employerId", employerId, {
+                    path: "/",
+                    maxAge: 30 * 24 * 60 * 60,
+                  });
+                  // setChange(!change);
                   window.location.href = "/dashboard";
                 })
                 .catch((err) => {
@@ -344,13 +334,11 @@ const Login = (props) => {
           setShow(false);
         }
         setShow(true);
-        setTimeout(() => {
-          document.getElementById("log").style.display = "block";
-          document.getElementById("newuser").style.display = "block";
-          document.getElementById("log").style.opacity = 1;
-          document.getElementById("newuser").style.opacity = 1;
-          setShow(false);
-        }, 2000);
+        document.getElementById("log").style.display = "block";
+        document.getElementById("newuser").style.display = "block";
+        document.getElementById("log").style.opacity = 1;
+        document.getElementById("newuser").style.opacity = 1;
+        setShow(false);
       })
       .catch(function (error) {
         var errorCode = error.code;

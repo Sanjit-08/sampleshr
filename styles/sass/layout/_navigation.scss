@@ -45,7 +45,7 @@
 
   &__image {
     background: url("../../../public/shraminlogo.png");
-    width: 19rem;
+    min-width: 25rem;
     height: 6rem;
     background-repeat: no-repeat;
     filter: saturate(3);

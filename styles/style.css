@@ -74,7 +74,8 @@ body {
   margin-bottom: 10rem; }
   @media only screen and (max-width: 37.5em) {
     .candidatebox {
-      display: flex; } }
+      display: flex;
+      margin-left: 3rem; } }
 
 .cancard {
   width: 40rem;
@@ -84,12 +85,14 @@ body {
   margin-right: 1rem;
   margin-bottom: 1rem;
   background-color: #eceeed;
+  background-color: rgba(176, 190, 197, 0.1);
   position: relative; }
   @media only screen and (max-width: 37.5em) {
     .cancard {
       display: block;
       flex-basis: 90%;
-      width: 60rem; } }
+      width: 60rem;
+      margin-bottom: 2rem; } }
   .cancard__info {
     margin-left: 1rem;
     list-style: none; }
@@ -179,6 +182,7 @@ body {
   height: 18rem;
   margin-left: 40rem;
   border-radius: 1rem;
+  background-color: rgba(176, 190, 197, 0.1);
   border: 1px solid #b0bec5;
   color: #001730;
   padding: 2rem 7rem;
@@ -217,8 +221,8 @@ body {
     position: relative; }
     @media only screen and (max-width: 37.5em) {
       .jobcard__information {
-        margin-left: 2rem;
-        margin-top: -1rem; } }
+        margin-left: -3rem;
+        margin-top: 0.4rem; } }
   .jobcard__profile {
     font-size: 1.7rem;
     letter-spacing: 0.2rem;
@@ -538,7 +542,7 @@ body {
         font-size: 3rem; } }
   .navigation__image {
     background: url("../../../public/shraminlogo.png");
-    width: 19rem;
+    min-width: 25rem;
     height: 6rem;
     background-repeat: no-repeat;
     filter: saturate(3); }
@@ -751,6 +755,7 @@ body {
     -webkit-appearance: none;
     /* Safari and Chrome */
     appearance: none;
+    background: #fff;
     background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
     background-repeat: no-repeat;
     background-position-x: 95%;
@@ -758,6 +763,9 @@ body {
     border-radius: 5px;
     font-size: 1.8rem;
     cursor: pointer; }
+    @media only screen and (max-width: 37.5em) {
+      .createjob__select {
+        background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='16' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>"); } }
     .createjob__select:focus {
       border: 1px solid blue;
       border-radius: 5px; }

@@ -141,7 +141,7 @@ const CreateJob = (props) => {
   var height = 70;
 
   if (isMobile) {
-    height = 35;
+    height = 33;
   }
   return (
     <>

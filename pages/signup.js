@@ -89,7 +89,7 @@ const Signup = (props) => {
 
   const registerEmployer = (token, empdata) => {
     API({
-      url: allApi.employer,
+      url: allApi.employerSignUp,
       method: "post",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -133,7 +133,7 @@ const Signup = (props) => {
             console.log("Bearer", token);
             API({
               method: "post",
-              url: "/signup",
+              url: allApi.employerSignUp,
               headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
@@ -141,21 +141,24 @@ const Signup = (props) => {
                 Connection: "keep-alive",
                 Accept: "application/json",
               },
+              data: {
+                name: "Testing",
+              },
             })
               .then((result) => {
                 console.log(result);
-                let userId = result.data.userId;
-                console.log(userId);
-                localStorage.setItem("userId", userId);
-                nookies.set(undefined, "userId", userId, {
-                  path: "/",
-                  maxAge: 30 * 24 * 60 * 60,
-                });
-                let empdata = {
-                  id: userId,
-                  name: "Test123",
-                };
-                registerEmployer(token, empdata);
+                // let userId = result.data.userId;
+                // console.log(userId);
+                // localStorage.setItem("userId", userId);
+                // nookies.set(undefined, "userId", userId, {
+                //   path: "/",
+                //   maxAge: 30 * 24 * 60 * 60,
+                // });
+                // let empdata = {
+                //   id: userId,
+                //   name: "Test123",
+                // };
+                // registerEmployer(token, empdata);
                 // window.location.href = "/dashboard";
               })
               .catch((err) => {

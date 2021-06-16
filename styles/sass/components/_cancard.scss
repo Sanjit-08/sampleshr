@@ -38,12 +38,14 @@
   margin-right: 1rem;
   margin-bottom: 1rem;
   background-color: #eceeed;
+  background-color: rgba($color-greyborder, 0.1);
   position: relative;
 
   @include respond(phone) {
     display: block;
     flex-basis: 90%;
     width: 60rem;
+    margin-bottom: 2rem;
   }
 
   &__info {

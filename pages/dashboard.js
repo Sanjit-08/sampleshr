@@ -38,15 +38,16 @@ const Dashboard = (props) => {
           <div className="jobheadline u-center-text u-margin-top-medium u-margin-bottom-small">
             MY JOBS
           </div>
-          {jobdata.map((job) => (
-            <JobCard
-              company={job.companyName}
-              trade={job.trade.masterName}
-              location={job.location.masterName}
-              salary={job.salary.masterName}
-              date={job.createdAt}
-            />
-          ))}
+          {jobdata &&
+            jobdata.map((job) => (
+              <JobCard
+                company={job.companyName}
+                trade={job.trade.masterName}
+                location={job.location.masterName}
+                salary={job.salary.masterName}
+                date={job.createdAt}
+              />
+            ))}
           {/* <JobCard info={info} jobdata={jobdata} />
           <JobCard info={info} jobdata={jobdata} />
           <JobCard info={info} jobdata={jobdata} />
@@ -78,7 +79,7 @@ export async function getServerSideProps(ctx) {
 
   let token = cookies.token;
 
-  let employerId = "9d704787-031e-4ee4-9cb0-db158f4df96b";
+  let employerId = cookies.employerId;
 
   // let job = await API({
   //   url: allApi.job,
