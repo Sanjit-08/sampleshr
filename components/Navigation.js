@@ -184,7 +184,7 @@ const Navigation = (props) => {
       {show || authuser ? (
         <div className="navigation__link">
           <a
-            className="navigation__button"
+            className="navigation__button navigation__button--logout"
             // onClick={async () => {
             //   await firebase.auth().signOut();
             // }}
@@ -198,35 +198,48 @@ const Navigation = (props) => {
       )}
 
       <ul className="navigation__list">
-        <li>
-          <Link href="/">
-            <a className="navigation__listitem">Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/about">
-            <a className="navigation__listitem">About</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/features">
-            <a className="navigation__listitem">Features</a>
-          </Link>
-        </li>
-        {show || authuser ? (
+        {!authuser ? (
           <li>
-            <Link href="/createjob">
-              <a className="navigation__listitem">Create New Job</a>
+            <Link href="/">
+              <a className="navigation__listitem">Home</a>
             </Link>
           </li>
         ) : (
           ""
         )}
-
+        {!authuser ? (
+          <li>
+            <Link href="/about">
+              <a className="navigation__listitem">About</a>
+            </Link>
+          </li>
+        ) : (
+          ""
+        )}
+        {!authuser ? (
+          <li>
+            <Link href="/features">
+              <a className="navigation__listitem">Features</a>
+            </Link>
+          </li>
+        ) : (
+          ""
+        )}
         {show || authuser ? (
           <li>
             <Link href="/dashboard">
               <a className="navigation__listitem">Dashboard</a>
+            </Link>
+          </li>
+        ) : (
+          ""
+        )}
+        {show || authuser ? (
+          <li>
+            <Link href="/createjob">
+              <a className="navigation__listitem navigation__listitem--createjob">
+                Create New Job
+              </a>
             </Link>
           </li>
         ) : (

@@ -46,6 +46,7 @@ const Dashboard = (props) => {
                 location={job.location.masterName}
                 salary={job.salary.masterName}
                 date={job.createdAt}
+                id={job.id}
               />
             ))}
           {/* <JobCard info={info} jobdata={jobdata} />

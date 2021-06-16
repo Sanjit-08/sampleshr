@@ -15,7 +15,7 @@ const JobCard = (props) => {
 
     return joinArray;
   };
-  let { company, trade, location, salary, date } = props;
+  let { company, trade, location, salary, date, id } = props;
   date = reverse(date.split("T")[0]);
   if (salary === "0 to 10000") {
     salary = "0-10k";
@@ -46,7 +46,7 @@ const JobCard = (props) => {
         <div className="jobcard__salary">&#8377;{salary} / month</div>
         <div className="jobcard__date">&#128337;{date}</div>
       </div>
-      <Link href={`jobapplications/${trade}`}>
+      <Link href={`jobapplications/${trade}?jobId=${id}`}>
         <a className="jobcard__application">40 Applications</a>
       </Link>
     </div>

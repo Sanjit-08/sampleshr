@@ -6,12 +6,22 @@ import StatusBar from "../../components/StatusBar";
 import CandidateCard from "../../components/CandidateCard";
 import NotFound from "../../components/NotFound";
 import { isMobile } from "react-device-detect";
+import { allApi } from "../../config";
+import API from "../../API";
 
 const JobApplications = (props) => {
+  console.log(props);
   const { list } = props;
   const { show } = props;
+  const { id } = props;
+  console.log("Job", id);
+  // const { query } = props;
+  // console.log(query);
+  // const { appdata } = props;
+  // console.log(appdata);
   const router = useRouter();
   const trade = router.query.trade;
+  // const jobId = router.query.jobId;
   let valid =
     trade === "Mason" ||
     trade === "Plumber" ||
@@ -61,9 +71,28 @@ export async function getServerSideProps(ctx) {
 
   const cookies = ctx.req.cookies;
 
+  const token = ctx.req.token;
+
+  const jobId = ctx.query.jobId;
   let show = false;
 
   let userId = cookies.userId;
+
+  let applications = await API({
+    url: allApi.jobApplications,
+    params: {
+      job: jobId,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+      Connection: "keep-alive",
+      Accept: "application/json",
+    },
+  });
+
+  let appdata = await applications.data;
 
   if (cookies.userId) {
     show = true;
@@ -77,6 +106,9 @@ export async function getServerSideProps(ctx) {
     props: {
       list: list,
       show: show,
+      // query: query,
+      appdata: appdata,
+      id: jobId,
     },
   };
 }

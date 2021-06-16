@@ -6,6 +6,7 @@ let allApi = {
   videoResume: "/candidate/videoResume",
   signup: "/signup",
   getEmployerData: "/employer",
+  jobApplications: "/job-applications",
   master: "/master",
   job: "/jobs",
 };
