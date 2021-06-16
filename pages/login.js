@@ -228,6 +228,9 @@ const Login = (props) => {
         setOpen(true);
         // var credential = result.credential;
         // var token = credential.accessToken;
+        let empdata = {
+          name: "Testing",
+        };
         firebase
           .auth()
           .currentUser.getIdToken(/* forceRefresh */ true)
@@ -247,9 +250,8 @@ const Login = (props) => {
                 Connection: "keep-alive",
                 Accept: "application/json",
               },
-              data: {
-                name: "Testing",
-              },
+
+              data: empdata,
             })
               .then((result) => {
                 console.log(result);

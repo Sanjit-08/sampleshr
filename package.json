@@ -7,6 +7,7 @@
     "dev": "next dev",
     "startserver": "npm-run-all --parallel dev watch-sass",
     "build": "next build",
+    "export": "next export",
     "start": "next start"
   },
   "dependencies": {

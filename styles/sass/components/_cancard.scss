@@ -8,6 +8,10 @@
   margin-bottom: 4rem;
   word-spacing: 0.5rem;
   font-family: "Ubuntu", sans-serif;
+
+  @include respond(phone) {
+    margin-left: 3rem;
+  }
 }
 
 .candidatebox {
@@ -18,6 +22,11 @@
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: 10rem;
+
+  @include respond(phone) {
+    display: flex;
+    margin-left: 3rem;
+  }
 }
 
 .cancard {
@@ -30,6 +39,12 @@
   margin-bottom: 1rem;
   background-color: #eceeed;
   position: relative;
+
+  @include respond(phone) {
+    display: block;
+    flex-basis: 90%;
+    width: 60rem;
+  }
 
   &__info {
     margin-left: 1rem;

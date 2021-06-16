@@ -60,6 +60,9 @@ body {
   margin-bottom: 4rem;
   word-spacing: 0.5rem;
   font-family: "Ubuntu", sans-serif; }
+  @media only screen and (max-width: 37.5em) {
+    .candidateapplication {
+      margin-left: 3rem; } }
 
 .candidatebox {
   display: flex;
@@ -69,6 +72,9 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   margin-bottom: 10rem; }
+  @media only screen and (max-width: 37.5em) {
+    .candidatebox {
+      display: flex; } }
 
 .cancard {
   width: 40rem;
@@ -79,6 +85,11 @@ body {
   margin-bottom: 1rem;
   background-color: #eceeed;
   position: relative; }
+  @media only screen and (max-width: 37.5em) {
+    .cancard {
+      display: block;
+      flex-basis: 90%;
+      width: 60rem; } }
   .cancard__info {
     margin-left: 1rem;
     list-style: none; }
@@ -389,21 +400,36 @@ body {
 .statusbox {
   margin-top: 1rem;
   margin-left: 28rem; }
+  @media only screen and (max-width: 37.5em) {
+    .statusbox {
+      margin-left: 3rem;
+      margin-top: 2rem; } }
 
 .statusbar {
   width: 95%;
   height: 7rem;
   padding: 1.6rem;
-  border: 1px solid black;
+  border: 1px solid #b0bec5;
   border-radius: 1rem; }
+  @media only screen and (max-width: 37.5em) {
+    .statusbar {
+      width: 90%;
+      height: 12rem; } }
   .statusbar__options {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row; }
+    @media only screen and (max-width: 37.5em) {
+      .statusbar__options {
+        flex-basis: 50%; } }
   .statusbar__status {
     margin-right: 3.5rem;
     font-size: 2rem;
     color: black; }
+    @media only screen and (max-width: 37.5em) {
+      .statusbar__status {
+        font-size: 1.9rem;
+        margin-bottom: 2rem; } }
   .statusbar__number {
     margin-left: 1rem;
     padding: 0.6rem 1.6rem;
@@ -411,6 +437,9 @@ body {
     outline: none;
     border-radius: 0.6rem;
     font-size: 1.6rem; }
+    @media only screen and (max-width: 37.5em) {
+      .statusbar__number {
+        padding: 0.4rem 1rem; } }
     .statusbar__number--shortlist {
       background-color: #1669f2; }
     .statusbar__number--hired {
