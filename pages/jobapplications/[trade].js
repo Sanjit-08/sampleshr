@@ -71,7 +71,7 @@ export async function getServerSideProps(ctx) {
 
   const cookies = ctx.req.cookies;
 
-  const token = ctx.req.token;
+  const token = cookies.token;
 
   const jobId = ctx.query.jobId;
   let show = false;
@@ -94,6 +94,8 @@ export async function getServerSideProps(ctx) {
 
   let appdata = await applications.data;
 
+  // let data = Object.entries(appdata).map((e) => ({ [e[0]]: e[1] }));
+
   if (cookies.userId) {
     show = true;
   }
@@ -109,6 +111,7 @@ export async function getServerSideProps(ctx) {
       // query: query,
       appdata: appdata,
       id: jobId,
+      // data: data,
     },
   };
 }

@@ -198,7 +198,7 @@ const Navigation = (props) => {
       )}
 
       <ul className="navigation__list">
-        {!authuser ? (
+        {!show && !authuser ? (
           <li>
             <Link href="/">
               <a className="navigation__listitem">Home</a>
@@ -207,7 +207,7 @@ const Navigation = (props) => {
         ) : (
           ""
         )}
-        {!authuser ? (
+        {!show && !authuser ? (
           <li>
             <Link href="/about">
               <a className="navigation__listitem">About</a>
@@ -216,7 +216,7 @@ const Navigation = (props) => {
         ) : (
           ""
         )}
-        {!authuser ? (
+        {!show && !authuser ? (
           <li>
             <Link href="/features">
               <a className="navigation__listitem">Features</a>

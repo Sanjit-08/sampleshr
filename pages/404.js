@@ -1,13 +1,4 @@
 import React from "react";
-
-const NotFound = () => {
-  return (
-    <>
-      <div>
-        <h1>404 Not Found!!</h1>
-      </div>
-    </>
-  );
-};
-
-export default NotFound;
+export default function Custom404() {
+  return <h1>404 - Page Not Found</h1>;
+}
